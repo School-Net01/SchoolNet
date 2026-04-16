@@ -5,7 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SchoolNet</title>
 
+<!-- FUENTE MODERNA -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
 <style>
+
 /* ===== RESET ===== */
 * {
     margin: 0;
@@ -15,11 +19,11 @@
 
 /* ===== BODY ===== */
 body {
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Poppins', sans-serif;
     height: 100vh;
-    background: linear-gradient(135deg, #00f2fe, #4facfe);
-    overflow: hidden;
+    background: radial-gradient(circle at top, #0f2027, #203a43, #2c5364);
     color: white;
+    overflow: hidden;
 }
 
 /* ===== NAVBAR ===== */
@@ -27,31 +31,35 @@ nav {
     position: absolute;
     top: 0;
     width: 100%;
-    padding: 20px 40px;
+    padding: 25px 60px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .logo {
-    font-size: 28px;
-    font-weight: bold;
+    font-size: 26px;
+    font-weight: 600;
     letter-spacing: 1px;
 }
 
-.nav-btn {
-    background: rgba(255,255,255,0.2);
-    border: none;
-    padding: 10px 20px;
-    border-radius: 10px;
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links button {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 10px 18px;
+    border-radius: 12px;
     color: white;
     cursor: pointer;
-    backdrop-filter: blur(10px);
     transition: 0.3s;
 }
 
-.nav-btn:hover {
-    background: rgba(255,255,255,0.4);
+.nav-links button:hover {
+    background: rgba(255,255,255,0.1);
 }
 
 /* ===== MAIN ===== */
@@ -62,93 +70,115 @@ nav {
     align-items: center;
 }
 
+/* ===== CARD ===== */
 .card {
     width: 90%;
-    max-width: 800px;
-    background: rgba(255,255,255,0.1);
-    backdrop-filter: blur(20px);
-    border-radius: 25px;
-    padding: 50px;
+    max-width: 850px;
+    padding: 60px;
+    border-radius: 30px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(25px);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.5);
     text-align: center;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-    animation: fadeIn 1s ease;
+    animation: fadeUp 1s ease;
 }
 
 /* ===== TEXT ===== */
 h1 {
-    font-size: 48px;
-    margin-bottom: 10px;
+    font-size: 50px;
+    font-weight: 600;
+    margin-bottom: 15px;
 }
 
 .subtitle {
     font-size: 18px;
-    opacity: 0.9;
-    margin-bottom: 40px;
+    opacity: 0.8;
+    margin-bottom: 50px;
 }
 
-/* ===== SEARCH ===== */
-.search-box {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    flex-wrap: wrap;
+/* ===== SEARCH BAR ===== */
+.search-container {
+    position: relative;
+    width: 100%;
 }
 
-select {
-    padding: 15px;
-    width: 300px;
-    border-radius: 12px;
+.search-container select {
+    width: 100%;
+    padding: 18px 20px;
+    border-radius: 15px;
     border: none;
     font-size: 16px;
     outline: none;
+    background: white;
+    color: black;
+    appearance: none;
 }
 
-button.main-btn {
-    padding: 15px 30px;
+.search-container::after {
+    content: "▼";
+    position: absolute;
+    right: 20px;
+    top: 18px;
+    color: #333;
+}
+
+/* ===== BUTTON ===== */
+.main-btn {
+    margin-top: 20px;
+    padding: 16px 40px;
+    border-radius: 15px;
     border: none;
-    border-radius: 12px;
-    background: #00ffe7;
-    color: black;
-    font-weight: bold;
+    background: linear-gradient(135deg, #00f2fe, #4facfe);
+    color: white;
+    font-weight: 600;
     cursor: pointer;
     transition: 0.3s;
 }
 
-button.main-btn:hover {
-    background: #00c9b7;
+.main-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,255,255,0.4);
 }
 
 /* ===== FEATURES ===== */
 .features {
-    margin-top: 40px;
+    margin-top: 50px;
     display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
+    justify-content: space-between;
     gap: 15px;
+    flex-wrap: wrap;
 }
 
 .feature {
-    background: rgba(255,255,255,0.15);
-    padding: 15px 20px;
-    border-radius: 12px;
+    flex: 1;
+    min-width: 120px;
+    padding: 15px;
+    border-radius: 15px;
+    background: rgba(255,255,255,0.08);
     font-size: 14px;
+    transition: 0.3s;
+}
+
+.feature:hover {
+    transform: translateY(-5px);
+    background: rgba(255,255,255,0.15);
 }
 
 /* ===== FOOTER ===== */
 footer {
     position: absolute;
-    bottom: 10px;
+    bottom: 15px;
     width: 100%;
     text-align: center;
     font-size: 13px;
-    opacity: 0.8;
+    opacity: 0.6;
 }
 
-/* ===== ANIMATIONS ===== */
-@keyframes fadeIn {
+/* ===== ANIMACIÓN ===== */
+@keyframes fadeUp {
     from {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(40px);
     }
     to {
         opacity: 1;
@@ -158,18 +188,15 @@ footer {
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 600px) {
+    .card {
+        padding: 35px;
+    }
+
     h1 {
         font-size: 32px;
     }
-
-    .card {
-        padding: 30px;
-    }
-
-    select {
-        width: 100%;
-    }
 }
+
 </style>
 </head>
 
@@ -178,42 +205,44 @@ footer {
 <!-- NAV -->
 <nav>
     <div class="logo">SchoolNet</div>
-    <button class="nav-btn">Sobre Nosotros</button>
+    <div class="nav-links">
+        <button>Inicio</button>
+        <button>Información</button>
+    </div>
 </nav>
 
 <!-- MAIN -->
 <div class="main">
     <div class="card">
-        <h1>Tu vida académica, organizada</h1>
+
+        <h1>Conecta tu mundo académico</h1>
         <div class="subtitle">
-            Accede a horarios, tareas, eventos y boletines en un solo lugar
+            Una plataforma moderna para estudiantes: horarios, tareas, eventos y más
         </div>
 
-        <!-- SEARCH -->
-        <div class="search-box">
+        <div class="search-container">
             <select id="colegio">
                 <option value="">Selecciona tu colegio</option>
                 <option value="colegio1.html">Colegio Nacional</option>
                 <option value="colegio2.html">Instituto Central</option>
                 <option value="colegio3.html">Liceo Moderno</option>
             </select>
-
-            <button class="main-btn" onclick="ir()">Entrar</button>
         </div>
 
-        <!-- FEATURES -->
+        <button class="main-btn" onclick="ir()">Acceder</button>
+
         <div class="features">
             <div class="feature">📅 Eventos</div>
             <div class="feature">📝 Tareas</div>
             <div class="feature">📊 Boletines</div>
             <div class="feature">⏰ Horarios</div>
         </div>
+
     </div>
 </div>
 
-<!-- FOOTER -->
 <footer>
-    © 2026 SchoolNet | Plataforma estudiantil
+    © 2026 SchoolNet — Plataforma educativa inteligente
 </footer>
 
 <script>
@@ -221,7 +250,7 @@ function ir() {
     let colegio = document.getElementById("colegio").value;
 
     if (colegio === "") {
-        alert("Selecciona un colegio primero");
+        alert("Selecciona un colegio");
     } else {
         window.location.href = colegio;
     }
