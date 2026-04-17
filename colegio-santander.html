@@ -3,173 +3,174 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Colegio Técnico Francisco De Paula Santander</title>
+<title>SchoolNet - Santander</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
 
-/* ===== RESET ===== */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* ===== BASE ===== */
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+    font-family:'Inter',sans-serif;
+    display:flex;
+    background:#0a0f1c;
+    color:#e6edf3;
 }
 
-/* ===== BODY ===== */
-body {
-    font-family: 'Inter', sans-serif;
-    display: flex;
-    background: #0b1120;
-    color: #e5e7eb;
-    overflow: hidden;
-}
-
-/* ===== FONDO ESTRELLAS ===== */
-.stars {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-}
-
-.star {
-    position: absolute;
-    width: 2px;
-    height: 2px;
-    background: #38bdf8;
-    opacity: 0.7;
-    animation: move 10s linear infinite;
-}
-
-@keyframes move {
-    from { transform: translateY(0); }
-    to { transform: translateY(100vh); }
+/* ===== FONDO SUAVE ===== */
+.bg{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:
+    radial-gradient(circle at 20% 30%, rgba(0,180,255,0.08), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(0,120,255,0.08), transparent 40%);
+    z-index:0;
 }
 
 /* ===== SIDEBAR ===== */
-.sidebar {
-    width: 260px;
-    height: 100vh;
-    background: rgba(2,6,23,0.9);
-    padding: 30px 20px;
-    display: flex;
-    flex-direction: column;
-    border-right: 1px solid #1e293b;
-    z-index: 1;
+.sidebar{
+    width:260px;
+    height:100vh;
+    background:rgba(10,15,28,0.95);
+    border-right:1px solid rgba(255,255,255,0.05);
+    padding:30px 20px;
+    display:flex;
+    flex-direction:column;
+    z-index:2;
 }
 
-.logo {
-    font-size: 20px;
-    font-weight: 600;
-    margin-bottom: 40px;
+.logo{
+    font-weight:600;
+    font-size:18px;
+    margin-bottom:40px;
+    letter-spacing:0.5px;
 }
 
-/* ===== SELECT ===== */
-select {
-    width: 100%;
-    padding: 12px;
-    border-radius: 10px;
-    border: none;
-    background: #1e293b;
-    color: white;
-    margin-bottom: 30px;
+/* SELECT */
+select{
+    background:#111827;
+    border:none;
+    padding:12px;
+    border-radius:10px;
+    color:#fff;
+    margin-bottom:30px;
 }
 
-/* ===== MENU ===== */
-.menu button {
-    width: 100%;
-    padding: 14px;
-    margin-bottom: 10px;
-    background: transparent;
-    border: none;
-    color: #94a3b8;
-    text-align: left;
-    border-radius: 10px;
-    cursor: pointer;
+/* MENU */
+.menu button{
+    width:100%;
+    padding:12px;
+    border:none;
+    background:none;
+    color:#9aa4b2;
+    text-align:left;
+    border-radius:10px;
+    margin-bottom:8px;
+    cursor:pointer;
+    transition:0.2s;
 }
 
-.menu button:hover,
-.menu button.active {
-    background: #1e293b;
-    color: white;
+.menu button.active,
+.menu button:hover{
+    background:#111827;
+    color:#fff;
+}
+
+/* LOGOUT */
+.logout{
+    margin-top:auto;
+    padding:12px;
+    border:none;
+    background:#111827;
+    border-radius:10px;
+    color:#fff;
+    cursor:pointer;
 }
 
 /* ===== MAIN ===== */
-.main {
-    flex: 1;
-    padding: 40px;
-    position: relative;
-    z-index: 1;
+.main{
+    flex:1;
+    padding:50px;
+    z-index:1;
 }
 
-/* ===== HEADER ===== */
-.header {
-    margin-bottom: 30px;
+/* HEADER */
+.header{
+    margin-bottom:40px;
 }
 
-.header h1 {
-    font-size: 26px;
-    font-weight: 600;
+.header h1{
+    font-size:28px;
+    font-weight:600;
+    margin-bottom:5px;
 }
 
-.header p {
-    color: #94a3b8;
-    margin-top: 5px;
+.header p{
+    color:#8b98a5;
+    font-size:14px;
 }
 
-/* ===== DASHBOARD ===== */
-.dashboard {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    margin-bottom: 30px;
+/* DASHBOARD */
+.dashboard{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:20px;
+    margin-bottom:30px;
 }
 
-.stat {
-    background: rgba(30,41,59,0.7);
-    padding: 20px;
-    border-radius: 15px;
-    backdrop-filter: blur(10px);
+.card{
+    background:#111827;
+    padding:20px;
+    border-radius:14px;
+    border:1px solid rgba(255,255,255,0.04);
+    transition:0.2s;
 }
 
-/* ===== CONTENT ===== */
-.content {
-    background: rgba(30,41,59,0.7);
-    padding: 25px;
-    border-radius: 15px;
-    backdrop-filter: blur(10px);
+.card:hover{
+    transform:translateY(-3px);
+    border-color:rgba(0,180,255,0.3);
 }
 
-/* ===== TABLE ===== */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
+/* CONTENT BOX */
+.content{
+    background:#111827;
+    padding:25px;
+    border-radius:14px;
+    border:1px solid rgba(255,255,255,0.05);
 }
 
-th, td {
-    padding: 12px;
+/* TABLE */
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:15px;
 }
 
-th {
-    background: #1e293b;
-    text-align: left;
+th,td{
+    padding:12px;
+    font-size:14px;
 }
 
-tr:nth-child(even) {
-    background: #020617;
+th{
+    color:#9aa4b2;
+    border-bottom:1px solid rgba(255,255,255,0.08);
 }
 
-/* ===== LOGOUT ===== */
-.logout {
-    margin-top: auto;
-    padding: 12px;
-    border: none;
-    background: #1e293b;
-    color: white;
-    border-radius: 10px;
-    cursor: pointer;
+td{
+    border-bottom:1px solid rgba(255,255,255,0.03);
+}
+
+tr:hover{
+    background:rgba(255,255,255,0.03);
+}
+
+/* RESPONSIVE */
+@media(max-width:800px){
+    .sidebar{display:none}
+    .main{padding:30px}
 }
 
 </style>
@@ -177,25 +178,24 @@ tr:nth-child(even) {
 
 <body>
 
-<!-- ESTRELLAS -->
-<div class="stars" id="stars"></div>
+<div class="bg"></div>
 
 <!-- SIDEBAR -->
 <div class="sidebar">
     <div class="logo">SchoolNet</div>
 
     <select id="grado" onchange="cambiarGrado()">
-        <option value="">Selecciona grado</option>
+        <option value="">Seleccionar grado</option>
         <option value="10">Grado 10</option>
         <option value="11">Grado 11</option>
     </select>
 
     <div class="menu">
-        <button onclick="mostrar('inicio')" class="active">Inicio</button>
-        <button onclick="mostrar('eventos')">Eventos</button>
-        <button onclick="mostrar('tareas')">Tareas</button>
-        <button onclick="mostrar('horarios')">Horarios</button>
-        <button onclick="mostrar('boletines')">Boletines</button>
+        <button class="active" onclick="nav(this,'inicio')">Inicio</button>
+        <button onclick="nav(this,'eventos')">Eventos</button>
+        <button onclick="nav(this,'tareas')">Tareas</button>
+        <button onclick="nav(this,'horarios')">Horarios</button>
+        <button onclick="nav(this,'boletines')">Boletines</button>
     </div>
 
     <button class="logout" onclick="salir()">Cerrar sesión</button>
@@ -204,88 +204,84 @@ tr:nth-child(even) {
 <!-- MAIN -->
 <div class="main">
 
-    <div class="header">
-        <h1>Colegio Técnico Francisco De Paula Santander</h1>
-        <p id="infoGrado">Selecciona un grado para visualizar la información académica</p>
-    </div>
+<div class="header">
+    <h1>Colegio Técnico Francisco De Paula Santander</h1>
+    <p id="gradoInfo">Selecciona un grado para visualizar la información</p>
+</div>
 
-    <div id="contenido"></div>
+<div id="contenido"></div>
 
 </div>
 
 <script>
 
-// ESTRELLAS
-for (let i = 0; i < 60; i++) {
-    let star = document.createElement("div");
-    star.className = "star";
-    star.style.left = Math.random() * 100 + "%";
-    star.style.animationDuration = (5 + Math.random() * 10) + "s";
-    document.getElementById("stars").appendChild(star);
-}
-
 let grado = "";
 
-function cambiarGrado() {
+/* CAMBIO DE GRADO */
+function cambiarGrado(){
     grado = document.getElementById("grado").value;
-    document.getElementById("infoGrado").innerText = grado ? "Grado " + grado : "Selecciona un grado";
-    mostrar("inicio");
+    document.getElementById("gradoInfo").innerText =
+        grado ? "Información académica - Grado " + grado :
+        "Selecciona un grado";
+    render("inicio");
 }
 
-function mostrar(seccion) {
+/* NAVEGACIÓN */
+function nav(btn,seccion){
+    document.querySelectorAll(".menu button").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    render(seccion);
+}
+
+/* RENDER */
+function render(sec){
 
     let cont = document.getElementById("contenido");
 
-    if (!grado) {
-        cont.innerHTML = "<p>Selecciona un grado para continuar.</p>";
+    if(!grado){
+        cont.innerHTML = "<p>Selecciona un grado primero.</p>";
         return;
     }
 
-    if (seccion === "inicio") {
-        cont.innerHTML = `
+    if(sec==="inicio"){
+        cont.innerHTML=`
         <div class="dashboard">
-            <div class="stat"><h2>6</h2><p>Tareas pendientes</p></div>
-            <div class="stat"><h2>3</h2><p>Eventos próximos</p></div>
-            <div class="stat"><h2>5</h2><p>Materias activas</p></div>
-        </div>
-        `;
+            <div class="card"><h2>6</h2><p>Tareas activas</p></div>
+            <div class="card"><h2>3</h2><p>Eventos próximos</p></div>
+            <div class="card"><h2>5</h2><p>Materias</p></div>
+        </div>`;
     }
 
-    if (seccion === "boletines") {
-        cont.innerHTML = `
+    if(sec==="boletines"){
+        cont.innerHTML=`
         <div class="content">
-            <h3>Registro académico del curso</h3>
-            <table>
-                <tr>
-                    <th>Estudiante</th>
-                    <th>Matemáticas</th>
-                    <th>Español</th>
-                    <th>Inglés</th>
-                </tr>
-                <tr><td>Juan Pérez</td><td>4.5</td><td>4.2</td><td>4.7</td></tr>
-                <tr><td>Laura Gómez</td><td>4.8</td><td>4.6</td><td>4.9</td></tr>
-                <tr><td>Carlos Ramírez</td><td>4.0</td><td>3.9</td><td>4.2</td></tr>
-                <tr><td>María Torres</td><td>4.7</td><td>4.5</td><td>4.8</td></tr>
-            </table>
-        </div>
-        `;
+        <h3>Registro académico del curso</h3>
+        <table>
+        <tr><th>Estudiante</th><th>Mat</th><th>Esp</th><th>Ing</th><th>Prom</th></tr>
+        <tr><td>Juan Pérez</td><td>4.5</td><td>4.2</td><td>4.6</td><td>4.4</td></tr>
+        <tr><td>Laura Gómez</td><td>4.8</td><td>4.6</td><td>4.9</td><td>4.7</td></tr>
+        <tr><td>Carlos Ramírez</td><td>4.0</td><td>3.9</td><td>4.2</td><td>4.0</td></tr>
+        <tr><td>María Torres</td><td>4.7</td><td>4.5</td><td>4.8</td><td>4.6</td></tr>
+        </table>
+        </div>`;
     }
 
-    if (seccion === "eventos") {
-        cont.innerHTML = `<div class="content"><h3>Eventos académicos</h3><p>Reunión - 22 abril</p></div>`;
+    if(sec==="eventos"){
+        cont.innerHTML=`<div class="content"><h3>Eventos</h3><p>Reunión académica — 22 abril</p></div>`;
     }
 
-    if (seccion === "tareas") {
-        cont.innerHTML = `<div class="content"><h3>Tareas</h3><p>Actividad asignada</p></div>`;
+    if(sec==="tareas"){
+        cont.innerHTML=`<div class="content"><h3>Tareas</h3><p>Funciones matemáticas</p></div>`;
     }
 
-    if (seccion === "horarios") {
-        cont.innerHTML = `<div class="content"><h3>Horarios</h3><p>Información semanal</p></div>`;
+    if(sec==="horarios"){
+        cont.innerHTML=`<div class="content"><h3>Horarios</h3><p>Lunes: Matemáticas - Física</p></div>`;
     }
 }
 
-function salir() {
-    window.location.href = "index.html";
+/* SALIR */
+function salir(){
+    window.location.href="index.html";
 }
 
 </script>
