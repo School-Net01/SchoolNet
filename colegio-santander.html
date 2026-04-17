@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SchoolNet | Santander</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
 
@@ -14,155 +14,138 @@
 
 body{
     font-family:'Inter',sans-serif;
-    background:linear-gradient(135deg,#020617,#0a0f1c);
-    color:#e6edf3;
+    background:#020617;
+    color:#e5e7eb;
     display:flex;
-}
-
-/* ===== FONDO ===== */
-body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    background:
-    radial-gradient(circle at 10% 20%, rgba(0,180,255,0.2), transparent 40%),
-    radial-gradient(circle at 80% 80%, rgba(0,120,255,0.2), transparent 40%);
-    z-index:-1;
 }
 
 /* ===== SIDEBAR ===== */
 .sidebar{
-    width:260px;
+    width:250px;
     height:100vh;
     padding:25px;
+    background:#020617;
+    border-right:1px solid rgba(255,255,255,0.05);
     display:flex;
     flex-direction:column;
-    background:rgba(15,23,42,0.7);
-    backdrop-filter:blur(15px);
-    border-right:1px solid rgba(255,255,255,0.05);
 }
 
 .logo{
-    font-size:20px;
     font-weight:600;
     margin-bottom:30px;
+    font-size:18px;
 }
 
-/* SELECT MEJORADO */
+/* SELECT */
 select{
     padding:12px;
     background:#020617;
+    border:1px solid rgba(255,255,255,0.1);
     color:#fff;
-    border:none;
-    border-radius:10px;
+    border-radius:8px;
     margin-bottom:25px;
-    font-weight:500;
 }
 
 /* MENU */
 .menu button{
     width:100%;
     padding:12px;
-    background:none;
     border:none;
-    color:#94a3b8;
+    background:none;
+    color:#9ca3af;
     text-align:left;
-    border-radius:10px;
+    border-radius:8px;
     cursor:pointer;
-    transition:0.2s;
 }
 
 .menu button:hover,
 .menu button.active{
-    background:rgba(255,255,255,0.05);
+    background:#111827;
     color:#fff;
 }
 
-/* ===== MAIN ===== */
+/* MAIN */
 .main{
     flex:1;
     padding:30px;
 }
 
-/* ===== HEADER PRO ===== */
-.hero{
-    padding:25px;
-    border-radius:18px;
+/* HEADER PROFESIONAL */
+.header{
     margin-bottom:25px;
-
-    background:linear-gradient(135deg,#0ea5e9,#2563eb);
-    box-shadow:0 10px 40px rgba(37,99,235,0.4);
 }
 
-.hero h1{
-    font-size:26px;
+.header h1{
+    font-size:22px;
     font-weight:600;
 }
 
-.hero p{
-    opacity:0.9;
+.header p{
+    font-size:14px;
+    color:#9ca3af;
     margin-top:5px;
 }
 
-/* ===== TOPBAR ===== */
+/* TOPBAR */
 .topbar{
     display:flex;
     justify-content:space-between;
-    align-items:center;
     margin-bottom:20px;
 }
 
 .search{
-    background:#020617;
+    background:#111827;
     border:none;
-    padding:12px;
-    border-radius:10px;
+    padding:10px 14px;
+    border-radius:8px;
     color:white;
-    width:260px;
+    width:240px;
 }
 
-/* ===== CARDS ===== */
+/* DASHBOARD */
 .dashboard{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:20px;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:15px;
     margin-bottom:20px;
 }
 
 .card{
-    padding:20px;
-    border-radius:14px;
-    background:rgba(255,255,255,0.05);
-    backdrop-filter:blur(10px);
-    transition:0.3s;
+    background:#111827;
+    padding:18px;
+    border-radius:10px;
 }
 
-.card:hover{
-    transform:translateY(-5px);
-    box-shadow:0 0 20px rgba(56,189,248,0.3);
+.card h2{
+    font-size:22px;
 }
 
-.card h2{font-size:24px}
+.card p{
+    color:#9ca3af;
+    font-size:13px;
+}
 
-/* ===== CONTENT ===== */
+/* CONTENT */
 .content{
+    background:#111827;
     padding:20px;
-    border-radius:14px;
-    background:rgba(255,255,255,0.04);
+    border-radius:10px;
 }
 
-/* ===== TABLA ===== */
+/* TABLE */
 table{
     width:100%;
-    margin-top:15px;
+    margin-top:10px;
+    border-collapse:collapse;
 }
 
 th,td{
-    padding:12px;
+    padding:10px;
+    text-align:left;
 }
 
 th{
-    color:#94a3b8;
+    color:#9ca3af;
     border-bottom:1px solid rgba(255,255,255,0.1);
 }
 
@@ -171,22 +154,20 @@ th{
 .medio{color:#facc15}
 .bajo{color:#ef4444}
 
-/* ===== AGENDA ===== */
-.agenda-item{
-    padding:15px;
-    margin-bottom:10px;
-    border-radius:10px;
-    background:#020617;
-    border-left:4px solid #38bdf8;
+/* LISTAS */
+.list-item{
+    padding:10px;
+    border-bottom:1px solid rgba(255,255,255,0.05);
 }
 
+/* BOTON */
 .logout{
     margin-top:auto;
     padding:12px;
-    background:#020617;
+    background:#111827;
     border:none;
     color:white;
-    border-radius:10px;
+    border-radius:8px;
     cursor:pointer;
 }
 
@@ -199,7 +180,7 @@ th{
     <div class="logo">SchoolNet</div>
 
     <select id="grado" onchange="cambiarGrado()">
-        <option value="">Selecciona grado</option>
+        <option value="">Seleccionar grado</option>
         <option value="10">Grado 10</option>
         <option value="11">Grado 11</option>
     </select>
@@ -207,7 +188,8 @@ th{
     <div class="menu">
         <button class="active" onclick="nav(this,'inicio')">Inicio</button>
         <button onclick="nav(this,'boletines')">Boletines</button>
-        <button onclick="nav(this,'agenda')">Agenda</button>
+        <button onclick="nav(this,'tareas')">Tareas</button>
+        <button onclick="nav(this,'eventos')">Eventos</button>
     </div>
 
     <button class="logout" onclick="salir()">Cerrar sesión</button>
@@ -215,7 +197,7 @@ th{
 
 <div class="main">
 
-<div class="hero">
+<div class="header">
     <h1>Colegio Técnico Francisco De Paula Santander</h1>
     <p id="info">Selecciona un grado</p>
 </div>
@@ -232,42 +214,45 @@ th{
 
 let grado="";
 
+/* ===== DATOS ===== */
 const datos={
-10:[
+10:{
+estudiantes:[
 {name:"Juan Pérez",mat:4.5,esp:4.2,ing:4.6},
 {name:"Laura Gómez",mat:4.8,esp:4.6,ing:4.9},
 {name:"Carlos Ramírez",mat:4.0,esp:3.9,ing:4.2},
 {name:"María Torres",mat:4.7,esp:4.5,ing:4.8},
-{name:"Andrés López",mat:3.8,esp:4.0,ing:3.9},
-{name:"Sofía Díaz",mat:4.9,esp:4.8,ing:5.0},
-{name:"Mateo Rojas",mat:4.3,esp:4.2,ing:4.1},
-{name:"Valentina Ruiz",mat:4.6,esp:4.4,ing:4.7},
-{name:"Daniel Castro",mat:3.7,esp:3.8,ing:3.9},
-{name:"Camila Herrera",mat:4.5,esp:4.6,ing:4.4},
-{name:"David Moreno",mat:4.2,esp:4.1,ing:4.3},
-{name:"Paula Vega",mat:4.7,esp:4.5,ing:4.8},
-{name:"Jorge Silva",mat:3.9,esp:3.8,ing:4.0},
-{name:"Natalia Cruz",mat:4.6,esp:4.7,ing:4.5},
-{name:"Luis Torres",mat:4.1,esp:4.0,ing:4.2}
+{name:"Sofía Díaz",mat:4.9,esp:4.8,ing:5.0}
 ],
+tareas:[
+"Álgebra página 45",
+"Ensayo de español",
+"Taller de inglés"
+],
+eventos:[
+"Examen matemáticas - 22 abril",
+"Reunión - 25 abril"
+]
+},
 
-11:[
+11:{
+estudiantes:[
 {name:"Sebastián Gil",mat:4.8,esp:4.7,ing:4.9},
 {name:"Daniela Pardo",mat:4.6,esp:4.5,ing:4.7},
 {name:"Kevin Vargas",mat:3.9,esp:4.0,ing:3.8},
 {name:"Sara Méndez",mat:4.7,esp:4.8,ing:4.6},
-{name:"Juanita León",mat:4.5,esp:4.6,ing:4.4},
-{name:"Felipe Gómez",mat:4.1,esp:4.2,ing:4.3},
-{name:"Camilo Ortiz",mat:3.8,esp:3.9,ing:4.0},
-{name:"Valeria Peña",mat:4.9,esp:4.8,ing:5.0},
-{name:"Nicolás Reyes",mat:4.3,esp:4.2,ing:4.4},
-{name:"Lucía Herrera",mat:4.6,esp:4.7,ing:4.5},
-{name:"Tomás Duarte",mat:4.2,esp:4.1,ing:4.3},
-{name:"Isabella Ríos",mat:4.8,esp:4.7,ing:4.9},
-{name:"Samuel Castro",mat:3.7,esp:3.8,ing:3.9},
-{name:"Juliana Torres",mat:4.5,esp:4.6,ing:4.7},
-{name:"Diego Molina",mat:4.0,esp:4.1,ing:4.2}
+{name:"Valeria Peña",mat:4.9,esp:4.8,ing:5.0}
+],
+tareas:[
+"Proyecto final",
+"Simulacro ICFES",
+"Informe ciencias"
+],
+eventos:[
+"Entrega boletines - 20 abril",
+"Graduación ensayo"
 ]
+}
 };
 
 function cambiarGrado(){
@@ -293,18 +278,18 @@ function render(sec){
 let cont=document.getElementById("contenido");
 
 if(!grado){
-cont.innerHTML="<p>Selecciona un grado primero.</p>";
+cont.innerHTML="<p>Selecciona un grado para ver la información.</p>";
 return;
 }
 
-let estudiantes=datos[grado];
+let data=datos[grado];
 
 if(sec==="inicio"){
 cont.innerHTML=`
 <div class="dashboard">
-<div class="card"><h2>${estudiantes.length}</h2><p>Estudiantes</p></div>
-<div class="card"><h2>6</h2><p>Tareas</p></div>
-<div class="card"><h2>3</h2><p>Eventos</p></div>
+<div class="card"><h2>${data.estudiantes.length}</h2><p>Estudiantes</p></div>
+<div class="card"><h2>${data.tareas.length}</h2><p>Tareas</p></div>
+<div class="card"><h2>${data.eventos.length}</h2><p>Eventos</p></div>
 </div>`;
 }
 
@@ -312,7 +297,7 @@ if(sec==="boletines"){
 let html=`<div class="content"><h3>Boletines</h3><table>
 <tr><th>Nombre</th><th>Mat</th><th>Esp</th><th>Ing</th></tr>`;
 
-estudiantes.forEach(e=>{
+data.estudiantes.forEach(e=>{
 html+=`<tr>
 <td>${e.name}</td>
 <td class="${notaColor(e.mat)}">${e.mat}</td>
@@ -325,29 +310,38 @@ html+=`</table></div>`;
 cont.innerHTML=html;
 }
 
-if(sec==="agenda"){
-cont.innerHTML=`
-<div class="content">
-<h3>Agenda Académica</h3>
-<div class="agenda-item">📘 Entrega de tareas - 20 Abril</div>
-<div class="agenda-item">📝 Examen Matemáticas - 22 Abril</div>
-<div class="agenda-item">🎓 Reunión académica - 25 Abril</div>
-</div>`;
+if(sec==="tareas"){
+let html=`<div class="content"><h3>Tareas</h3>`;
+data.tareas.forEach(t=>{
+html+=`<div class="list-item">📘 ${t}</div>`;
+});
+html+=`</div>`;
+cont.innerHTML=html;
+}
+
+if(sec==="eventos"){
+let html=`<div class="content"><h3>Eventos</h3>`;
+data.eventos.forEach(e=>{
+html+=`<div class="list-item">📅 ${e}</div>`;
+});
+html+=`</div>`;
+cont.innerHTML=html;
 }
 
 }
 
 function buscar(txt){
+if(!grado)return;
+
 txt=txt.toLowerCase();
-let estudiantes=datos[grado];
-let filtrados=estudiantes.filter(e=>e.name.toLowerCase().includes(txt));
+let lista=datos[grado].estudiantes.filter(e=>e.name.toLowerCase().includes(txt));
 
 let cont=document.getElementById("contenido");
 
 let html=`<div class="content"><h3>Resultados</h3><table>
 <tr><th>Nombre</th><th>Mat</th><th>Esp</th><th>Ing</th></tr>`;
 
-filtrados.forEach(e=>{
+lista.forEach(e=>{
 html+=`<tr>
 <td>${e.name}</td>
 <td>${e.mat}</td>
