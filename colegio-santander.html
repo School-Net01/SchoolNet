@@ -19,7 +19,7 @@ body{
     display:flex;
 }
 
-/* ===== FONDO PREMIUM ===== */
+/* FONDO */
 body::before{
     content:"";
     position:fixed;
@@ -28,10 +28,9 @@ body::before{
     background:
     radial-gradient(circle at 10% 20%, rgba(0,180,255,0.08), transparent 40%),
     radial-gradient(circle at 80% 70%, rgba(0,120,255,0.08), transparent 40%);
-    z-index:0;
 }
 
-/* ===== SIDEBAR ===== */
+/* SIDEBAR */
 .sidebar{
     width:260px;
     height:100vh;
@@ -40,7 +39,6 @@ body::before{
     padding:25px;
     display:flex;
     flex-direction:column;
-    z-index:2;
 }
 
 .logo{
@@ -49,7 +47,6 @@ body::before{
     margin-bottom:30px;
 }
 
-/* SELECT */
 select{
     padding:12px;
     background:#111827;
@@ -59,7 +56,6 @@ select{
     margin-bottom:25px;
 }
 
-/* MENU */
 .menu button{
     width:100%;
     padding:12px;
@@ -70,7 +66,6 @@ select{
     border-radius:10px;
     margin-bottom:8px;
     cursor:pointer;
-    transition:0.2s;
 }
 
 .menu button:hover,
@@ -79,11 +74,10 @@ select{
     color:#fff;
 }
 
-/* ===== MAIN ===== */
+/* MAIN */
 .main{
     flex:1;
     padding:30px 40px;
-    z-index:1;
 }
 
 /* TOPBAR */
@@ -101,16 +95,6 @@ select{
     border:none;
     color:white;
     width:250px;
-}
-
-/* HEADER */
-.header h1{
-    font-size:26px;
-}
-
-.header p{
-    color:#8b98a5;
-    font-size:14px;
 }
 
 /* DASHBOARD */
@@ -150,7 +134,6 @@ table{
 
 th,td{
     padding:12px;
-    font-size:14px;
 }
 
 th{
@@ -162,22 +145,32 @@ tr:hover{
     background:rgba(255,255,255,0.03);
 }
 
-/* COLORES NOTAS */
+/* COLORES */
 .alto{color:#22c55e}
 .medio{color:#facc15}
 .bajo{color:#ef4444}
+
+/* BADGE */
+.badge{
+    padding:5px 10px;
+    border-radius:8px;
+    font-size:12px;
+}
+
+.b-alto{background:#22c55e20;color:#22c55e}
+.b-medio{background:#facc1520;color:#facc15}
+.b-bajo{background:#ef444420;color:#ef4444}
 
 /* CALENDARIO */
 .calendar{
     display:grid;
     grid-template-columns:repeat(7,1fr);
     gap:8px;
-    margin-top:15px;
 }
 
 .day{
+    padding:12px;
     background:#020617;
-    padding:10px;
     text-align:center;
     border-radius:8px;
 }
@@ -203,7 +196,6 @@ tr:hover{
 
 <body>
 
-<!-- SIDEBAR -->
 <div class="sidebar">
     <div class="logo">SchoolNet</div>
 
@@ -224,12 +216,11 @@ tr:hover{
     <button class="logout" onclick="salir()">Cerrar sesión</button>
 </div>
 
-<!-- MAIN -->
 <div class="main">
 
 <div class="topbar">
-    <div class="header">
-        <h1>Colegio Técnico Francisco De Paula Santander</h1>
+    <div>
+        <h1>Colegio Santander</h1>
         <p id="info">Selecciona un grado</p>
     </div>
 
@@ -242,17 +233,28 @@ tr:hover{
 
 <script>
 
-let grado="";
-let estudiantes=[
-{name:"Juan Pérez",mat:4.5,esp:4.2,ing:4.6},
-{name:"Laura Gómez",mat:4.8,esp:4.6,ing:4.9},
-{name:"Carlos Ramírez",mat:4.0,esp:3.9,ing:4.2},
-{name:"María Torres",mat:4.7,esp:4.5,ing:4.8}
-];
+/* ===== DATA POR GRADO ===== */
+const datos = {
+10: generarEstudiantes("10"),
+11: generarEstudiantes("11")
+};
 
+function generarEstudiantes(grado){
+    const nombres = ["Juan","Laura","Carlos","María","Pedro","Sofía","Andrés","Camila","Luis","Valentina","Mateo","Sara","Daniel","Paula","David","Ana","Jorge","Lucía"];
+    return nombres.slice(0,15).map(n=>({
+        name: n+" "+grado,
+        mat: (Math.random()*2+3).toFixed(1),
+        esp: (Math.random()*2+3).toFixed(1),
+        ing: (Math.random()*2+3).toFixed(1)
+    }));
+}
+
+let gradoActual="";
+
+/* ===== FUNCIONES ===== */
 function cambiarGrado(){
-    grado=document.getElementById("grado").value;
-    document.getElementById("info").innerText=grado?"Grado "+grado:"Selecciona grado";
+    gradoActual=document.getElementById("grado").value;
+    document.getElementById("info").innerText="Grado "+gradoActual;
     render("inicio");
 }
 
@@ -262,85 +264,109 @@ function nav(btn,sec){
     render(sec);
 }
 
-function notaColor(n){
+function promedio(e){
+    return ((+e.mat + +e.esp + +e.ing)/3).toFixed(2);
+}
+
+function nivel(n){
     if(n>=4.5)return "alto";
-    if(n>=4.0)return "medio";
+    if(n>=4)return "medio";
     return "bajo";
 }
 
+/* ===== RENDER ===== */
 function render(sec){
 
-let cont=document.getElementById("contenido");
-
-if(!grado){
-    cont.innerHTML="<p>Selecciona un grado primero.</p>";
+if(!gradoActual){
+    contenido.innerHTML="<p>Selecciona un grado primero</p>";
     return;
 }
 
+let estudiantes = datos[gradoActual];
+
 if(sec==="inicio"){
-cont.innerHTML=`
-<div class="dashboard">
-<div class="card"><h2>6</h2><p>Tareas pendientes</p></div>
-<div class="card"><h2>3</h2><p>Eventos próximos</p></div>
-<div class="card"><h2>92%</h2><p>Asistencia</p></div>
-</div>`;
+    let promGeneral = (estudiantes.reduce((a,e)=>a+ +promedio(e),0)/estudiantes.length).toFixed(2);
+
+    contenido.innerHTML=`
+    <div class="dashboard">
+        <div class="card"><h2>${estudiantes.length}</h2><p>Estudiantes</p></div>
+        <div class="card"><h2>${promGeneral}</h2><p>Promedio general</p></div>
+        <div class="card"><h2>${Math.floor(Math.random()*5+3)}</h2><p>Tareas activas</p></div>
+    </div>`;
 }
 
 if(sec==="boletines"){
-let html=`<div class="content"><h3>Boletines del curso</h3><table>
-<tr><th>Nombre</th><th>Mat</th><th>Esp</th><th>Ing</th></tr>`;
+    let html=`<div class="content"><h3>Boletines</h3><table>
+    <tr><th>Nombre</th><th>Mat</th><th>Esp</th><th>Ing</th><th>Prom</th><th>Nivel</th></tr>`;
 
-estudiantes.forEach(e=>{
-html+=`<tr>
-<td>${e.name}</td>
-<td class="${notaColor(e.mat)}">${e.mat}</td>
-<td class="${notaColor(e.esp)}">${e.esp}</td>
-<td class="${notaColor(e.ing)}">${e.ing}</td>
-</tr>`;
-});
+    estudiantes.forEach(e=>{
+        let p = promedio(e);
+        let n = nivel(p);
+        html+=`
+        <tr>
+        <td>${e.name}</td>
+        <td>${e.mat}</td>
+        <td>${e.esp}</td>
+        <td>${e.ing}</td>
+        <td>${p}</td>
+        <td><span class="badge b-${n}">${n}</span></td>
+        </tr>`;
+    });
 
-html+=`</table></div>`;
-cont.innerHTML=html;
+    html+="</table></div>";
+    contenido.innerHTML=html;
 }
 
 if(sec==="eventos"){
-cont.innerHTML=`<div class="content"><h3>Eventos</h3><p>Entrega de boletines - 25 abril</p></div>`;
+    contenido.innerHTML=`
+    <div class="content">
+    <h3>Eventos</h3>
+    <ul>
+    <li>📌 Entrega de boletines - 25 abril</li>
+    <li>🎓 Feria académica - 10 mayo</li>
+    <li>⚽ Torneo deportivo - 18 mayo</li>
+    </ul>
+    </div>`;
 }
 
 if(sec==="tareas"){
-cont.innerHTML=`<div class="content"><h3>Tareas</h3><p>Resolver ejercicios de álgebra</p></div>`;
+    contenido.innerHTML=`
+    <div class="content">
+    <h3>Tareas</h3>
+    <ul>
+    <li>Matemáticas: Álgebra página 45</li>
+    <li>Español: Ensayo corto</li>
+    <li>Inglés: Presentación oral</li>
+    </ul>
+    </div>`;
 }
 
 if(sec==="calendario"){
-cont.innerHTML=`<div class="content">
-<h3>Calendario</h3>
-<div class="calendar">
-<div class="day">1</div><div class="day event">2</div><div class="day">3</div>
-<div class="day">4</div><div class="day">5</div><div class="day event">6</div>
-</div></div>`;
+    let dias="";
+    for(let i=1;i<=30;i++){
+        dias+=`<div class="day ${i==5||i==12?"event":""}">${i}</div>`;
+    }
+    contenido.innerHTML=`<div class="content"><h3>Calendario</h3><div class="calendar">${dias}</div></div>`;
 }
 
 }
 
+/* ===== BUSCAR ===== */
 function buscar(txt){
+if(!gradoActual)return;
+
 txt=txt.toLowerCase();
-let filtrados=estudiantes.filter(e=>e.name.toLowerCase().includes(txt));
-let cont=document.getElementById("contenido");
+let estudiantes = datos[gradoActual].filter(e=>e.name.toLowerCase().includes(txt));
 
 let html=`<div class="content"><h3>Resultados</h3><table>
-<tr><th>Nombre</th><th>Mat</th><th>Esp</th><th>Ing</th></tr>`;
+<tr><th>Nombre</th><th>Promedio</th></tr>`;
 
-filtrados.forEach(e=>{
-html+=`<tr>
-<td>${e.name}</td>
-<td>${e.mat}</td>
-<td>${e.esp}</td>
-<td>${e.ing}</td>
-</tr>`;
+estudiantes.forEach(e=>{
+html+=`<tr><td>${e.name}</td><td>${promedio(e)}</td></tr>`;
 });
 
-html+=`</table></div>`;
-cont.innerHTML=html;
+html+="</table></div>";
+contenido.innerHTML=html;
 }
 
 function salir(){
