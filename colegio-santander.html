@@ -21,12 +21,12 @@ body {
     font-family: 'Poppins', sans-serif;
     display: flex;
     background: #0f172a;
-    color: white;
+    color: #e2e8f0;
 }
 
 /* ===== SIDEBAR ===== */
 .sidebar {
-    width: 250px;
+    width: 260px;
     height: 100vh;
     background: #020617;
     padding: 30px 20px;
@@ -35,17 +35,33 @@ body {
 }
 
 .sidebar h2 {
+    font-size: 18px;
     margin-bottom: 40px;
-    font-size: 20px;
+    font-weight: 500;
 }
 
+/* ===== SELECT GRADO ===== */
+.grado-select {
+    margin-bottom: 30px;
+}
+
+.grado-select select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    background: #1e293b;
+    color: #e2e8f0;
+}
+
+/* ===== MENU ===== */
 .menu button {
     width: 100%;
-    padding: 15px;
+    padding: 14px;
     margin-bottom: 10px;
     background: transparent;
     border: none;
-    color: white;
+    color: #cbd5f5;
     text-align: left;
     border-radius: 10px;
     cursor: pointer;
@@ -54,12 +70,13 @@ body {
 
 .menu button:hover {
     background: #1e293b;
+    color: white;
 }
 
 /* ===== MAIN ===== */
 .main {
     flex: 1;
-    padding: 30px;
+    padding: 40px;
 }
 
 /* ===== HEADER ===== */
@@ -68,7 +85,13 @@ body {
 }
 
 .header h1 {
-    font-size: 28px;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.header span {
+    font-size: 14px;
+    color: #94a3b8;
 }
 
 /* ===== GRID ===== */
@@ -87,12 +110,18 @@ body {
 }
 
 .card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-4px);
     background: #334155;
 }
 
 .card h3 {
-    margin-bottom: 10px;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.card p {
+    font-size: 14px;
+    color: #cbd5e1;
 }
 
 /* ===== RESPONSIVE ===== */
@@ -111,11 +140,23 @@ body {
 <div class="sidebar">
     <h2>SchoolNet</h2>
 
+    <div class="grado-select">
+        <select id="grado" onchange="cambiarGrado()">
+            <option value="">Selecciona grado</option>
+            <option value="grado6">Grado 6</option>
+            <option value="grado7">Grado 7</option>
+            <option value="grado8">Grado 8</option>
+            <option value="grado9">Grado 9</option>
+            <option value="grado10">Grado 10</option>
+            <option value="grado11">Grado 11</option>
+        </select>
+    </div>
+
     <div class="menu">
-        <button onclick="mostrar('eventos')">📅 Eventos</button>
-        <button onclick="mostrar('tareas')">📝 Tareas</button>
-        <button onclick="mostrar('horarios')">⏰ Horarios</button>
-        <button onclick="mostrar('boletines')">📊 Boletines</button>
+        <button onclick="mostrar('eventos')">Eventos</button>
+        <button onclick="mostrar('tareas')">Tareas</button>
+        <button onclick="mostrar('horarios')">Horarios</button>
+        <button onclick="mostrar('boletines')">Boletines</button>
     </div>
 </div>
 
@@ -124,62 +165,80 @@ body {
 
     <div class="header">
         <h1>Colegio Técnico Francisco De Paula Santander</h1>
+        <span id="gradoTexto">Selecciona un grado para ver la información</span>
     </div>
 
-    <!-- CONTENIDO -->
-    <div id="contenido" class="grid">
-
-        <!-- EVENTOS -->
-        <div class="card eventos">
-            <h3>📅 Reunión de padres</h3>
-            <p>20 de Abril - 7:00 AM</p>
-        </div>
-
-        <div class="card eventos">
-            <h3>🎉 Día cultural</h3>
-            <p>25 de Abril</p>
-        </div>
-
-        <!-- TAREAS -->
-        <div class="card tareas" style="display:none;">
-            <h3>📝 Matemáticas</h3>
-            <p>Resolver página 45</p>
-        </div>
-
-        <div class="card tareas" style="display:none;">
-            <h3>📖 Español</h3>
-            <p>Ensayo sobre literatura</p>
-        </div>
-
-        <!-- HORARIOS -->
-        <div class="card horarios" style="display:none;">
-            <h3>⏰ Lunes</h3>
-            <p>Matemáticas - Inglés - Física</p>
-        </div>
-
-        <div class="card horarios" style="display:none;">
-            <h3>⏰ Martes</h3>
-            <p>Química - Sociales - Educación Física</p>
-        </div>
-
-        <!-- BOLETINES -->
-        <div class="card boletines" style="display:none;">
-            <h3>📊 Primer periodo</h3>
-            <p>Disponible el 30 de Abril</p>
-        </div>
-
-    </div>
+    <div id="contenido" class="grid"></div>
 
 </div>
 
 <script>
-function mostrar(seccion) {
-    let todas = document.querySelectorAll('.card');
-    todas.forEach(card => card.style.display = 'none');
 
-    let seleccionadas = document.querySelectorAll('.' + seccion);
-    seleccionadas.forEach(card => card.style.display = 'block');
+let gradoActual = "";
+
+// DATOS POR GRADO
+const datos = {
+    grado10: {
+        eventos: [
+            {titulo: "Reunión académica", desc: "22 de abril - 7:00 AM"},
+        ],
+        tareas: [
+            {titulo: "Matemáticas", desc: "Ejercicios de funciones"},
+        ],
+        horarios: [
+            {titulo: "Lunes", desc: "Matemáticas, Física, Inglés"},
+        ],
+        boletines: [
+            {titulo: "Primer periodo", desc: "Disponible 30 de abril"},
+        ]
+    },
+
+    grado11: {
+        eventos: [
+            {titulo: "Simulacro ICFES", desc: "28 de abril"},
+        ],
+        tareas: [
+            {titulo: "Filosofía", desc: "Ensayo argumentativo"},
+        ],
+        horarios: [
+            {titulo: "Martes", desc: "Química, Sociales, Español"},
+        ],
+        boletines: [
+            {titulo: "Último informe", desc: "Entrega final en mayo"},
+        ]
+    }
+};
+
+// CAMBIAR GRADO
+function cambiarGrado() {
+    gradoActual = document.getElementById("grado").value;
+    document.getElementById("gradoTexto").innerText = gradoActual ? "Información para " + gradoActual : "Selecciona un grado";
+    document.getElementById("contenido").innerHTML = "";
 }
+
+// MOSTRAR SECCIÓN
+function mostrar(seccion) {
+
+    if (!gradoActual) {
+        alert("Selecciona primero un grado");
+        return;
+    }
+
+    let contenedor = document.getElementById("contenido");
+    contenedor.innerHTML = "";
+
+    let lista = datos[gradoActual][seccion];
+
+    lista.forEach(item => {
+        contenedor.innerHTML += `
+            <div class="card">
+                <h3>${item.titulo}</h3>
+                <p>${item.desc}</p>
+            </div>
+        `;
+    });
+}
+
 </script>
 
 </body>
