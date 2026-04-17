@@ -9,19 +9,19 @@
 
 <style>
 
-/* ===== RESET ===== */
+/* ===== BASE ===== */
 *{margin:0;padding:0;box-sizing:border-box}
 
 body{
     font-family:'Inter',sans-serif;
-    background:#020617;
+    background:#0b1120;
     color:#e5e7eb;
     display:flex;
 }
 
 /* ===== SIDEBAR ===== */
 .sidebar{
-    width:250px;
+    width:260px;
     height:100vh;
     padding:25px;
     background:#020617;
@@ -31,48 +31,48 @@ body{
 }
 
 .logo{
-    font-weight:600;
-    margin-bottom:30px;
     font-size:18px;
+    font-weight:600;
+    margin-bottom:25px;
 }
 
 /* SELECT */
 select{
     padding:12px;
-    background:#020617;
-    border:1px solid rgba(255,255,255,0.1);
+    background:#0b1120;
     color:#fff;
+    border:1px solid rgba(255,255,255,0.1);
     border-radius:8px;
     margin-bottom:25px;
 }
 
 /* MENU */
 .menu button{
-    width:100%;
     padding:12px;
-    border:none;
+    width:100%;
     background:none;
-    color:#9ca3af;
+    border:none;
+    color:#94a3b8;
     text-align:left;
     border-radius:8px;
     cursor:pointer;
 }
 
-.menu button:hover,
-.menu button.active{
+.menu button.active,
+.menu button:hover{
     background:#111827;
     color:#fff;
 }
 
-/* MAIN */
+/* ===== MAIN ===== */
 .main{
     flex:1;
     padding:30px;
 }
 
-/* HEADER PROFESIONAL */
+/* HEADER */
 .header{
-    margin-bottom:25px;
+    margin-bottom:20px;
 }
 
 .header h1{
@@ -81,22 +81,21 @@ select{
 }
 
 .header p{
-    font-size:14px;
-    color:#9ca3af;
-    margin-top:5px;
+    font-size:13px;
+    color:#94a3b8;
 }
 
 /* TOPBAR */
 .topbar{
     display:flex;
-    justify-content:space-between;
+    justify-content:flex-end;
     margin-bottom:20px;
 }
 
 .search{
-    background:#111827;
+    background:#020617;
     border:none;
-    padding:10px 14px;
+    padding:10px;
     border-radius:8px;
     color:white;
     width:240px;
@@ -122,7 +121,6 @@ select{
 
 .card p{
     color:#9ca3af;
-    font-size:13px;
 }
 
 /* CONTENT */
@@ -141,11 +139,10 @@ table{
 
 th,td{
     padding:10px;
-    text-align:left;
 }
 
 th{
-    color:#9ca3af;
+    color:#94a3b8;
     border-bottom:1px solid rgba(255,255,255,0.1);
 }
 
@@ -154,13 +151,12 @@ th{
 .medio{color:#facc15}
 .bajo{color:#ef4444}
 
-/* LISTAS */
-.list-item{
+/* LIST */
+.item{
     padding:10px;
     border-bottom:1px solid rgba(255,255,255,0.05);
 }
 
-/* BOTON */
 .logout{
     margin-top:auto;
     padding:12px;
@@ -214,7 +210,7 @@ th{
 
 let grado="";
 
-/* ===== DATOS ===== */
+/* ===== DATOS REALES ===== */
 const datos={
 10:{
 estudiantes:[
@@ -222,17 +218,20 @@ estudiantes:[
 {name:"Laura Gómez",mat:4.8,esp:4.6,ing:4.9},
 {name:"Carlos Ramírez",mat:4.0,esp:3.9,ing:4.2},
 {name:"María Torres",mat:4.7,esp:4.5,ing:4.8},
-{name:"Sofía Díaz",mat:4.9,esp:4.8,ing:5.0}
+{name:"Sofía Díaz",mat:4.9,esp:4.8,ing:5.0},
+{name:"Andrés López",mat:3.8,esp:4.0,ing:3.9},
+{name:"Mateo Rojas",mat:4.3,esp:4.2,ing:4.1},
+{name:"Valentina Ruiz",mat:4.6,esp:4.4,ing:4.7},
+{name:"Daniel Castro",mat:3.7,esp:3.8,ing:3.9},
+{name:"Camila Herrera",mat:4.5,esp:4.6,ing:4.4},
+{name:"David Moreno",mat:4.2,esp:4.1,ing:4.3},
+{name:"Paula Vega",mat:4.7,esp:4.5,ing:4.8},
+{name:"Jorge Silva",mat:3.9,esp:3.8,ing:4.0},
+{name:"Natalia Cruz",mat:4.6,esp:4.7,ing:4.5},
+{name:"Luis Torres",mat:4.1,esp:4.0,ing:4.2}
 ],
-tareas:[
-"Álgebra página 45",
-"Ensayo de español",
-"Taller de inglés"
-],
-eventos:[
-"Examen matemáticas - 22 abril",
-"Reunión - 25 abril"
-]
+tareas:["Álgebra pág 45","Ensayo español","Taller inglés","Biología resumen","Historia mapa conceptual","Química ejercicios"],
+eventos:["Examen matemáticas 22 abril","Reunión padres 25 abril","Entrega tareas 28 abril"]
 },
 
 11:{
@@ -241,17 +240,20 @@ estudiantes:[
 {name:"Daniela Pardo",mat:4.6,esp:4.5,ing:4.7},
 {name:"Kevin Vargas",mat:3.9,esp:4.0,ing:3.8},
 {name:"Sara Méndez",mat:4.7,esp:4.8,ing:4.6},
-{name:"Valeria Peña",mat:4.9,esp:4.8,ing:5.0}
+{name:"Valeria Peña",mat:4.9,esp:4.8,ing:5.0},
+{name:"Felipe Gómez",mat:4.1,esp:4.2,ing:4.3},
+{name:"Camilo Ortiz",mat:3.8,esp:3.9,ing:4.0},
+{name:"Nicolás Reyes",mat:4.3,esp:4.2,ing:4.4},
+{name:"Lucía Herrera",mat:4.6,esp:4.7,ing:4.5},
+{name:"Tomás Duarte",mat:4.2,esp:4.1,ing:4.3},
+{name:"Isabella Ríos",mat:4.8,esp:4.7,ing:4.9},
+{name:"Samuel Castro",mat:3.7,esp:3.8,ing:3.9},
+{name:"Juliana Torres",mat:4.5,esp:4.6,ing:4.7},
+{name:"Diego Molina",mat:4.0,esp:4.1,ing:4.2},
+{name:"Juanita León",mat:4.5,esp:4.6,ing:4.4}
 ],
-tareas:[
-"Proyecto final",
-"Simulacro ICFES",
-"Informe ciencias"
-],
-eventos:[
-"Entrega boletines - 20 abril",
-"Graduación ensayo"
-]
+tareas:["Proyecto final","Simulacro ICFES","Informe ciencias","Exposición inglés","Ensayo filosofía","Laboratorio química"],
+eventos:["Entrega boletines 20 abril","Ensayo grado","Simulacro final"]
 }
 };
 
@@ -274,7 +276,6 @@ function notaColor(n){
 }
 
 function render(sec){
-
 let cont=document.getElementById("contenido");
 
 if(!grado){
@@ -288,7 +289,7 @@ if(sec==="inicio"){
 cont.innerHTML=`
 <div class="dashboard">
 <div class="card"><h2>${data.estudiantes.length}</h2><p>Estudiantes</p></div>
-<div class="card"><h2>${data.tareas.length}</h2><p>Tareas</p></div>
+<div class="card"><h2>${data.tareas.length}</h2><p>Tareas pendientes</p></div>
 <div class="card"><h2>${data.eventos.length}</h2><p>Eventos</p></div>
 </div>`;
 }
@@ -296,7 +297,6 @@ cont.innerHTML=`
 if(sec==="boletines"){
 let html=`<div class="content"><h3>Boletines</h3><table>
 <tr><th>Nombre</th><th>Mat</th><th>Esp</th><th>Ing</th></tr>`;
-
 data.estudiantes.forEach(e=>{
 html+=`<tr>
 <td>${e.name}</td>
@@ -305,7 +305,6 @@ html+=`<tr>
 <td class="${notaColor(e.ing)}">${e.ing}</td>
 </tr>`;
 });
-
 html+=`</table></div>`;
 cont.innerHTML=html;
 }
@@ -313,7 +312,7 @@ cont.innerHTML=html;
 if(sec==="tareas"){
 let html=`<div class="content"><h3>Tareas</h3>`;
 data.tareas.forEach(t=>{
-html+=`<div class="list-item">📘 ${t}</div>`;
+html+=`<div class="item">📘 ${t}</div>`;
 });
 html+=`</div>`;
 cont.innerHTML=html;
@@ -322,17 +321,15 @@ cont.innerHTML=html;
 if(sec==="eventos"){
 let html=`<div class="content"><h3>Eventos</h3>`;
 data.eventos.forEach(e=>{
-html+=`<div class="list-item">📅 ${e}</div>`;
+html+=`<div class="item">📅 ${e}</div>`;
 });
 html+=`</div>`;
 cont.innerHTML=html;
 }
-
 }
 
 function buscar(txt){
 if(!grado)return;
-
 txt=txt.toLowerCase();
 let lista=datos[grado].estudiantes.filter(e=>e.name.toLowerCase().includes(txt));
 
@@ -340,7 +337,6 @@ let cont=document.getElementById("contenido");
 
 let html=`<div class="content"><h3>Resultados</h3><table>
 <tr><th>Nombre</th><th>Mat</th><th>Esp</th><th>Ing</th></tr>`;
-
 lista.forEach(e=>{
 html+=`<tr>
 <td>${e.name}</td>
@@ -349,7 +345,6 @@ html+=`<tr>
 <td>${e.ing}</td>
 </tr>`;
 });
-
 html+=`</table></div>`;
 cont.innerHTML=html;
 }
