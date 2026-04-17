@@ -10,7 +10,7 @@
 
 <style>
 
-/* ===== RESET ===== */
+/* ================= RESET ================= */
 *{margin:0;padding:0;box-sizing:border-box}
 
 body{
@@ -20,7 +20,7 @@ body{
     display:flex;
 }
 
-/* ===== FONDO SEGURO ===== */
+/* ================= FONDO ================= */
 body::before{
     content:"";
     position:fixed;
@@ -32,11 +32,12 @@ body::before{
     pointer-events:none;
 }
 
-/* ===== SIDEBAR ===== */
+/* ================= SIDEBAR ================= */
 .sidebar{
     width:260px;
     height:100vh;
-    background:#0d1324;
+    background:rgba(13,19,36,0.9);
+    backdrop-filter:blur(10px);
     border-right:1px solid rgba(255,255,255,0.05);
     padding:25px;
     display:flex;
@@ -44,7 +45,7 @@ body::before{
 }
 
 .logo{
-    font-size:18px;
+    font-size:20px;
     font-weight:600;
     margin-bottom:30px;
 }
@@ -77,14 +78,14 @@ select{
     color:white;
 }
 
-/* ===== MAIN ===== */
+/* ================= MAIN ================= */
 .main{
     flex:1;
     padding:30px 40px;
     position:relative;
 }
 
-/* ===== TOPBAR ===== */
+/* ================= TOPBAR ================= */
 .topbar{
     display:flex;
     justify-content:space-between;
@@ -100,7 +101,7 @@ select{
     color:white;
 }
 
-/* ===== DASHBOARD ===== */
+/* ================= DASHBOARD ================= */
 .dashboard{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
@@ -112,23 +113,24 @@ select{
     background:#111827;
     padding:20px;
     border-radius:14px;
-    transition:0.25s;
+    transition:0.3s;
     border:1px solid transparent;
 }
 
 .card:hover{
-    transform:translateY(-5px);
+    transform:translateY(-6px);
     border-color:#38bdf8;
+    box-shadow:0 0 25px rgba(56,189,248,0.2);
 }
 
-/* ===== CONTENT ===== */
+/* ================= CONTENT ================= */
 .content{
     background:#111827;
     padding:25px;
     border-radius:14px;
 }
 
-/* ===== TABLE ===== */
+/* ================= TABLE ================= */
 table{
     width:100%;
     border-collapse:collapse;
@@ -137,7 +139,6 @@ table{
 
 th,td{
     padding:12px;
-    text-align:left;
 }
 
 th{
@@ -147,14 +148,57 @@ th{
 
 tr:hover{
     background:rgba(255,255,255,0.03);
+    cursor:pointer;
 }
 
-/* ===== NIVELES ===== */
-.alto{color:#22c55e}
-.medio{color:#facc15}
-.bajo{color:#ef4444}
+/* ================= BADGES ================= */
+.badge{
+    padding:5px 10px;
+    border-radius:8px;
+    font-size:12px;
+}
 
-/* ===== BOTON ===== */
+.alto{background:#22c55e20;color:#22c55e}
+.medio{background:#facc1520;color:#facc15}
+.bajo{background:#ef444420;color:#ef4444}
+
+/* ================= CALENDARIO ================= */
+.calendar{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:8px;
+}
+
+.day{
+    padding:12px;
+    background:#020617;
+    text-align:center;
+    border-radius:8px;
+}
+
+.event{
+    background:#38bdf8;
+    color:#000;
+}
+
+/* ================= MODAL ================= */
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.6);
+    display:none;
+    justify-content:center;
+    align-items:center;
+}
+
+.modal-content{
+    background:#111827;
+    padding:25px;
+    border-radius:14px;
+    width:300px;
+}
+
+/* ================= BOTON ================= */
 .logout{
     margin-top:auto;
     padding:12px;
@@ -170,7 +214,6 @@ tr:hover{
 
 <body>
 
-<!-- SIDEBAR -->
 <div class="sidebar">
     <div class="logo">SchoolNet</div>
 
@@ -185,12 +228,12 @@ tr:hover{
         <button onclick="nav(this,'boletines')">Boletines</button>
         <button onclick="nav(this,'eventos')">Eventos</button>
         <button onclick="nav(this,'tareas')">Tareas</button>
+        <button onclick="nav(this,'calendario')">Calendario</button>
     </div>
 
     <button class="logout" onclick="salir()">Cerrar sesión</button>
 </div>
 
-<!-- MAIN -->
 <div class="main">
 
 <div class="topbar">
@@ -206,30 +249,56 @@ tr:hover{
 
 </div>
 
+<!-- MODAL -->
+<div class="modal" id="modal">
+    <div class="modal-content" id="modalContent"></div>
+</div>
+
 <script>
 
-/* ===== GENERADOR ===== */
-function generarEstudiantes(){
-    const nombres = ["Juan","Laura","Carlos","María","Pedro","Sofía","Andrés","Camila","Luis","Valentina","Mateo","Sara","Daniel","Paula","David","Ana","Jorge","Lucía"];
-    
-    return nombres.slice(0,15).map(n=>({
-        nombre:n,
-        mat:(Math.random()*2+3).toFixed(1),
-        esp:(Math.random()*2+3).toFixed(1),
-        ing:(Math.random()*2+3).toFixed(1)
-    }));
-}
-
+/* ================= DATOS ================= */
 const data = {
-    10: generarEstudiantes(),
-    11: generarEstudiantes()
+10: [
+{nombre:"Juan Pérez",mat:4.5,esp:4.2,ing:4.6},
+{nombre:"Laura Gómez",mat:4.8,esp:4.6,ing:4.9},
+{nombre:"Carlos Ramírez",mat:4.0,esp:3.9,ing:4.2},
+{nombre:"María Torres",mat:4.7,esp:4.5,ing:4.8},
+{nombre:"Pedro López",mat:3.8,esp:4.0,ing:3.9},
+{nombre:"Sofía Castro",mat:4.9,esp:4.7,ing:5.0},
+{nombre:"Andrés Rojas",mat:4.2,esp:4.1,ing:4.3},
+{nombre:"Camila Díaz",mat:4.6,esp:4.4,ing:4.7},
+{nombre:"Luis Herrera",mat:3.7,esp:3.9,ing:4.0},
+{nombre:"Valentina Ruiz",mat:4.8,esp:4.9,ing:4.7},
+{nombre:"Mateo Vargas",mat:4.3,esp:4.2,ing:4.1},
+{nombre:"Sara Medina",mat:4.7,esp:4.6,ing:4.8},
+{nombre:"Daniel Ortiz",mat:3.9,esp:4.0,ing:3.8},
+{nombre:"Paula Jiménez",mat:4.6,esp:4.7,ing:4.5},
+{nombre:"David Moreno",mat:4.1,esp:4.2,ing:4.0}
+],
+11: [
+{nombre:"Alejandro Castillo",mat:4.6,esp:4.4,ing:4.7},
+{nombre:"Natalia Pineda",mat:4.9,esp:4.8,ing:5.0},
+{nombre:"Sebastián Cruz",mat:4.2,esp:4.1,ing:4.3},
+{nombre:"Valeria Mendoza",mat:4.7,esp:4.6,ing:4.8},
+{nombre:"Juan David León",mat:3.9,esp:4.0,ing:3.8},
+{nombre:"Daniela Suárez",mat:4.8,esp:4.7,ing:4.9},
+{nombre:"Esteban Vega",mat:4.3,esp:4.2,ing:4.1},
+{nombre:"Isabella Romero",mat:4.9,esp:5.0,ing:4.8},
+{nombre:"Felipe Guerrero",mat:3.8,esp:3.9,ing:4.0},
+{nombre:"Camilo Navarro",mat:4.5,esp:4.4,ing:4.6},
+{nombre:"Gabriela Torres",mat:4.7,esp:4.6,ing:4.8},
+{nombre:"Samuel Peña",mat:4.0,esp:4.1,ing:4.2},
+{nombre:"Juliana Ríos",mat:4.8,esp:4.7,ing:4.9},
+{nombre:"Tomás Cárdenas",mat:4.2,esp:4.3,ing:4.1},
+{nombre:"Luciana Méndez",mat:4.9,esp:4.8,ing:5.0}
+]
 };
 
 let gradoActual="";
 
-/* ===== UTIL ===== */
+/* ================= FUNCIONES ================= */
 function promedio(e){
-    return ((+e.mat + +e.esp + +e.ing)/3).toFixed(2);
+    return ((e.mat + e.esp + e.ing)/3).toFixed(2);
 }
 
 function nivel(n){
@@ -238,10 +307,9 @@ function nivel(n){
     return "bajo";
 }
 
-/* ===== CONTROL ===== */
 function cambiarGrado(){
     gradoActual=document.getElementById("grado").value;
-    document.getElementById("info").innerText="Grado "+gradoActual;
+    info.innerText="Grado "+gradoActual;
     render("inicio");
 }
 
@@ -251,24 +319,24 @@ function nav(btn,sec){
     render(sec);
 }
 
-/* ===== RENDER ===== */
+/* ================= RENDER ================= */
 function render(sec){
 
 if(!gradoActual){
-    contenido.innerHTML="<p>Selecciona un grado primero</p>";
+    contenido.innerHTML="<p>Selecciona un grado</p>";
     return;
 }
 
-let estudiantes = data[gradoActual];
+let estudiantes=data[gradoActual];
 
 if(sec==="inicio"){
-    let prom = (estudiantes.reduce((a,e)=>a+ +promedio(e),0)/estudiantes.length).toFixed(2);
+    let prom=(estudiantes.reduce((a,e)=>a+ +promedio(e),0)/estudiantes.length).toFixed(2);
 
     contenido.innerHTML=`
     <div class="dashboard">
         <div class="card"><h2>${estudiantes.length}</h2><p>Estudiantes</p></div>
         <div class="card"><h2>${prom}</h2><p>Promedio</p></div>
-        <div class="card"><h2>${Math.floor(Math.random()*5+3)}</h2><p>Tareas</p></div>
+        <div class="card"><h2>6</h2><p>Tareas</p></div>
     </div>`;
 }
 
@@ -276,10 +344,10 @@ if(sec==="boletines"){
     let html=`<div class="content"><h3>Boletines</h3><table>
     <tr><th>Nombre</th><th>Mat</th><th>Esp</th><th>Ing</th><th>Prom</th></tr>`;
 
-    estudiantes.forEach(e=>{
+    estudiantes.forEach((e,i)=>{
         let p=promedio(e);
         html+=`
-        <tr>
+        <tr onclick="verEstudiante(${i})">
         <td>${e.nombre}</td>
         <td>${e.mat}</td>
         <td>${e.esp}</td>
@@ -293,30 +361,53 @@ if(sec==="boletines"){
 }
 
 if(sec==="eventos"){
-    contenido.innerHTML=`<div class="content">
-    <h3>Eventos</h3>
-    <p>📅 Entrega de boletines - 25 abril</p>
-    <p>🎓 Feria académica - 10 mayo</p>
-    </div>`;
+    contenido.innerHTML=`<div class="content"><h3>Eventos</h3>
+    <p>Entrega de boletines</p>
+    <p>Feria académica</p></div>`;
 }
 
 if(sec==="tareas"){
-    contenido.innerHTML=`<div class="content">
-    <h3>Tareas</h3>
-    <p>Matemáticas: Álgebra</p>
-    <p>Español: Ensayo</p>
-    </div>`;
+    contenido.innerHTML=`<div class="content"><h3>Tareas</h3>
+    <p>Álgebra</p>
+    <p>Ensayo</p></div>`;
+}
+
+if(sec==="calendario"){
+    let dias="";
+    for(let i=1;i<=30;i++){
+        dias+=`<div class="day ${i==10?"event":""}">${i}</div>`;
+    }
+    contenido.innerHTML=`<div class="content"><h3>Calendario</h3><div class="calendar">${dias}</div></div>`;
 }
 
 }
 
-/* ===== BUSCAR ===== */
+/* ================= MODAL ================= */
+function verEstudiante(i){
+let e=data[gradoActual][i];
+
+modal.style.display="flex";
+modalContent.innerHTML=`
+<h3>${e.nombre}</h3>
+<p>Mat: ${e.mat}</p>
+<p>Esp: ${e.esp}</p>
+<p>Ing: ${e.ing}</p>
+<p>Prom: ${promedio(e)}</p>
+<button onclick="cerrarModal()">Cerrar</button>
+`;
+}
+
+function cerrarModal(){
+modal.style.display="none";
+}
+
+/* ================= BUSCAR ================= */
 function buscar(txt){
 if(!gradoActual)return;
 
 txt=txt.toLowerCase();
 
-let lista = data[gradoActual].filter(e=>e.nombre.toLowerCase().includes(txt));
+let lista=data[gradoActual].filter(e=>e.nombre.toLowerCase().includes(txt));
 
 let html=`<div class="content"><h3>Resultados</h3><table>
 <tr><th>Nombre</th><th>Promedio</th></tr>`;
