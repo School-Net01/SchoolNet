@@ -25,9 +25,26 @@ nav{
 }
 
 .logo{
-    font-size:18px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:17px;
     font-weight:600;
     letter-spacing:0.5px;
+}
+
+.logo-mark{
+    width:32px;
+    height:32px;
+    border-radius:6px;
+    background:linear-gradient(135deg,#5faedc,#7ccfff);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:13px;
+    font-weight:600;
+    color:#08131a;
+    letter-spacing:1px;
 }
 
 .nav-links button{
@@ -186,7 +203,10 @@ footer{
 <body>
 
 <nav>
-    <div class="logo">SchoolNet</div>
+    <div class="logo">
+        <div class="logo-mark">SN</div>
+        <span>SchoolNet</span>
+    </div>
     <div class="nav-links">
         <button>Inicio</button>
         <button>Información</button>
