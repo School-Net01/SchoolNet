@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Colegio Técnico Francisco De Paula Santander</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+/* ===== RESET ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ===== BODY ===== */
+body {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    background: #0f172a;
+    color: white;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: #020617;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar h2 {
+    margin-bottom: 40px;
+    font-size: 20px;
+}
+
+.menu button {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 10px;
+    background: transparent;
+    border: none;
+    color: white;
+    text-align: left;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.menu button:hover {
+    background: #1e293b;
+}
+
+/* ===== MAIN ===== */
+.main {
+    flex: 1;
+    padding: 30px;
+}
+
+/* ===== HEADER ===== */
+.header {
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    font-size: 28px;
+}
+
+/* ===== GRID ===== */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* ===== CARD ===== */
+.card {
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 15px;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    background: #334155;
+}
+
+.card h3 {
+    margin-bottom: 10px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 700px) {
+    .sidebar {
+        display: none;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <h2>SchoolNet</h2>
+
+    <div class="menu">
+        <button onclick="mostrar('eventos')">📅 Eventos</button>
+        <button onclick="mostrar('tareas')">📝 Tareas</button>
+        <button onclick="mostrar('horarios')">⏰ Horarios</button>
+        <button onclick="mostrar('boletines')">📊 Boletines</button>
+    </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+    <div class="header">
+        <h1>Colegio Técnico Francisco De Paula Santander</h1>
+    </div>
+
+    <!-- CONTENIDO -->
+    <div id="contenido" class="grid">
+
+        <!-- EVENTOS -->
+        <div class="card eventos">
+            <h3>📅 Reunión de padres</h3>
+            <p>20 de Abril - 7:00 AM</p>
+        </div>
+
+        <div class="card eventos">
+            <h3>🎉 Día cultural</h3>
+            <p>25 de Abril</p>
+        </div>
+
+        <!-- TAREAS -->
+        <div class="card tareas" style="display:none;">
+            <h3>📝 Matemáticas</h3>
+            <p>Resolver página 45</p>
+        </div>
+
+        <div class="card tareas" style="display:none;">
+            <h3>📖 Español</h3>
+            <p>Ensayo sobre literatura</p>
+        </div>
+
+        <!-- HORARIOS -->
+        <div class="card horarios" style="display:none;">
+            <h3>⏰ Lunes</h3>
+            <p>Matemáticas - Inglés - Física</p>
+        </div>
+
+        <div class="card horarios" style="display:none;">
+            <h3>⏰ Martes</h3>
+            <p>Química - Sociales - Educación Física</p>
+        </div>
+
+        <!-- BOLETINES -->
+        <div class="card boletines" style="display:none;">
+            <h3>📊 Primer periodo</h3>
+            <p>Disponible el 30 de Abril</p>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+function mostrar(seccion) {
+    let todas = document.querySelectorAll('.card');
+    todas.forEach(card => card.style.display = 'none');
+
+    let seleccionadas = document.querySelectorAll('.' + seccion);
+    seleccionadas.forEach(card => card.style.display = 'block');
+}
+</script>
+
+</body>
+</html>
