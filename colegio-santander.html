@@ -9,162 +9,210 @@
 
 <style>
 
-/* ===== BASE ===== */
+/* ===== VARIABLES ===== */
+:root{
+--bg:#0a0f1c;
+--glass:rgba(255,255,255,0.05);
+--border:rgba(255,255,255,0.08);
+
+--text:#e5e7eb;
+--soft:#9ca3af;
+
+--primary:#5eead4;
+}
+
+/* ===== RESET ===== */
 *{margin:0;padding:0;box-sizing:border-box}
 
 body{
-    font-family:'Inter',sans-serif;
-    background:#0b1120;
-    color:#e5e7eb;
-    display:flex;
+font-family:'Inter',sans-serif;
+background:var(--bg);
+color:var(--text);
+display:flex;
+cursor:none;
+}
+
+/* ===== CURSOR ===== */
+.cursor{
+width:18px;height:18px;
+border:2px solid var(--primary);
+border-radius:50%;
+position:fixed;
+pointer-events:none;
+transform:translate(-50%,-50%);
+z-index:9999;
+}
+
+.cursor-f{
+width:35px;height:35px;
+background:rgba(94,234,212,0.1);
+border-radius:50%;
+position:fixed;
+pointer-events:none;
+transform:translate(-50%,-50%);
+z-index:9998;
 }
 
 /* ===== SIDEBAR ===== */
 .sidebar{
-    width:260px;
-    height:100vh;
-    padding:25px;
-    background:#020617;
-    border-right:1px solid rgba(255,255,255,0.05);
-    display:flex;
-    flex-direction:column;
+width:260px;
+height:100vh;
+padding:25px;
+display:flex;
+flex-direction:column;
+
+background:var(--glass);
+backdrop-filter:blur(15px);
+border-right:1px solid var(--border);
 }
 
 .logo{
-    font-size:18px;
-    font-weight:600;
-    margin-bottom:25px;
+font-size:18px;
+font-weight:600;
+margin-bottom:25px;
 }
 
 /* SELECT */
 select{
-    padding:12px;
-    background:#0b1120;
-    color:#fff;
-    border:1px solid rgba(255,255,255,0.1);
-    border-radius:8px;
-    margin-bottom:25px;
+padding:12px;
+background:#020617;
+color:#fff;
+border:1px solid var(--border);
+border-radius:10px;
+margin-bottom:25px;
 }
 
 /* MENU */
 .menu button{
-    padding:12px;
-    width:100%;
-    background:none;
-    border:none;
-    color:#94a3b8;
-    text-align:left;
-    border-radius:8px;
-    cursor:pointer;
+width:100%;
+padding:12px;
+background:none;
+border:none;
+color:var(--soft);
+text-align:left;
+border-radius:10px;
+cursor:pointer;
+transition:0.2s;
 }
 
-.menu button.active,
-.menu button:hover{
-    background:#111827;
-    color:#fff;
+.menu button:hover,
+.menu button.active{
+background:var(--glass);
+color:#fff;
 }
 
 /* ===== MAIN ===== */
 .main{
-    flex:1;
-    padding:30px;
+flex:1;
+padding:30px;
 }
 
 /* HEADER */
 .header{
-    margin-bottom:20px;
+padding:20px;
+border-radius:16px;
+margin-bottom:20px;
+
+background:var(--glass);
+backdrop-filter:blur(10px);
+border:1px solid var(--border);
 }
 
 .header h1{
-    font-size:22px;
-    font-weight:600;
+font-size:24px;
+font-weight:600;
 }
 
 .header p{
-    font-size:13px;
-    color:#94a3b8;
+font-size:13px;
+color:var(--soft);
 }
 
 /* TOPBAR */
 .topbar{
-    display:flex;
-    justify-content:flex-end;
-    margin-bottom:20px;
+display:flex;
+justify-content:flex-end;
+margin-bottom:20px;
 }
 
 .search{
-    background:#020617;
-    border:none;
-    padding:10px;
-    border-radius:8px;
-    color:white;
-    width:240px;
+background:#020617;
+border:none;
+padding:12px;
+border-radius:10px;
+color:white;
+width:240px;
 }
 
 /* DASHBOARD */
 .dashboard{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-    gap:15px;
-    margin-bottom:20px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:15px;
+margin-bottom:20px;
 }
 
 .card{
-    background:#111827;
-    padding:18px;
-    border-radius:10px;
+padding:20px;
+border-radius:16px;
+background:var(--glass);
+backdrop-filter:blur(10px);
+border:1px solid var(--border);
+transition:0.3s;
 }
 
-.card h2{
-    font-size:22px;
+.card:hover{
+transform:translateY(-5px);
+box-shadow:0 10px 30px rgba(0,0,0,0.4);
 }
 
-.card p{
-    color:#9ca3af;
-}
+.card h2{font-size:22px}
+.card p{color:var(--soft)}
 
 /* CONTENT */
 .content{
-    background:#111827;
-    padding:20px;
-    border-radius:10px;
+background:var(--glass);
+padding:20px;
+border-radius:16px;
+border:1px solid var(--border);
 }
 
 /* TABLE */
 table{
-    width:100%;
-    margin-top:10px;
-    border-collapse:collapse;
+width:100%;
+margin-top:10px;
+border-collapse:collapse;
 }
 
 th,td{
-    padding:10px;
+padding:10px;
 }
 
 th{
-    color:#94a3b8;
-    border-bottom:1px solid rgba(255,255,255,0.1);
+color:var(--soft);
+border-bottom:1px solid var(--border);
 }
 
 /* NOTAS */
-.alto{color:#22c55e}
+.alto{color:#4ade80}
 .medio{color:#facc15}
-.bajo{color:#ef4444}
+.bajo{color:#f87171}
 
 /* LIST */
 .item{
-    padding:10px;
-    border-bottom:1px solid rgba(255,255,255,0.05);
+padding:10px;
+border-bottom:1px solid rgba(255,255,255,0.05);
 }
 
+/* BOTON */
 .logout{
-    margin-top:auto;
-    padding:12px;
-    background:#111827;
-    border:none;
-    color:white;
-    border-radius:8px;
-    cursor:pointer;
+margin-top:auto;
+padding:12px;
+background:#020617;
+border:none;
+color:white;
+border-radius:10px;
+cursor:pointer;
 }
 
 </style>
@@ -172,34 +220,37 @@ th{
 
 <body>
 
+<div class="cursor"></div>
+<div class="cursor-f"></div>
+
 <div class="sidebar">
-    <div class="logo">SchoolNet</div>
+<div class="logo">SchoolNet</div>
 
-    <select id="grado" onchange="cambiarGrado()">
-        <option value="">Seleccionar grado</option>
-        <option value="10">Grado 10</option>
-        <option value="11">Grado 11</option>
-    </select>
+<select id="grado" onchange="cambiarGrado()">
+<option value="">Seleccionar grado</option>
+<option value="10">Grado 10</option>
+<option value="11">Grado 11</option>
+</select>
 
-    <div class="menu">
-        <button class="active" onclick="nav(this,'inicio')">Inicio</button>
-        <button onclick="nav(this,'boletines')">Boletines</button>
-        <button onclick="nav(this,'tareas')">Tareas</button>
-        <button onclick="nav(this,'eventos')">Eventos</button>
-    </div>
+<div class="menu">
+<button class="active" onclick="nav(this,'inicio')">Inicio</button>
+<button onclick="nav(this,'boletines')">Boletines</button>
+<button onclick="nav(this,'tareas')">Tareas</button>
+<button onclick="nav(this,'eventos')">Eventos</button>
+</div>
 
-    <button class="logout" onclick="salir()">Cerrar sesión</button>
+<button class="logout" onclick="salir()">Cerrar sesión</button>
 </div>
 
 <div class="main">
 
 <div class="header">
-    <h1>Colegio Técnico Francisco De Paula Santander</h1>
-    <p id="info">Selecciona un grado</p>
+<h1>Colegio Técnico Francisco De Paula Santander</h1>
+<p id="info">Selecciona un grado</p>
 </div>
 
 <div class="topbar">
-    <input type="text" class="search" placeholder="Buscar estudiante..." onkeyup="buscar(this.value)">
+<input type="text" class="search" placeholder="Buscar estudiante..." onkeyup="buscar(this.value)">
 </div>
 
 <div id="contenido"></div>
@@ -208,9 +259,19 @@ th{
 
 <script>
 
+/* CURSOR */
+const c=document.querySelector(".cursor");
+const f=document.querySelector(".cursor-f");
+document.addEventListener("mousemove",e=>{
+c.style.left=e.clientX+"px";
+c.style.top=e.clientY+"px";
+f.style.left=e.clientX+"px";
+f.style.top=e.clientY+"px";
+});
+
 let grado="";
 
-/* ===== DATOS REALES ===== */
+/* ===== DATOS (IGUALES) ===== */
 const datos={
 10:{
 estudiantes:[
@@ -258,21 +319,21 @@ eventos:["Entrega boletines 20 abril","Ensayo grado","Simulacro final"]
 };
 
 function cambiarGrado(){
-    grado=document.getElementById("grado").value;
-    document.getElementById("info").innerText=grado?"Grado "+grado:"Selecciona un grado";
-    render("inicio");
+grado=document.getElementById("grado").value;
+document.getElementById("info").innerText=grado?"Grado "+grado:"Selecciona un grado";
+render("inicio");
 }
 
 function nav(btn,sec){
-    document.querySelectorAll(".menu button").forEach(b=>b.classList.remove("active"));
-    btn.classList.add("active");
-    render(sec);
+document.querySelectorAll(".menu button").forEach(b=>b.classList.remove("active"));
+btn.classList.add("active");
+render(sec);
 }
 
 function notaColor(n){
-    if(n>=4.5)return "alto";
-    if(n>=4.0)return "medio";
-    return "bajo";
+if(n>=4.5)return "alto";
+if(n>=4.0)return "medio";
+return "bajo";
 }
 
 function render(sec){
