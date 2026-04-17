@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SchoolNet – Instituto Central</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --bg:          #060910;
+  --bg2:         #0d1117;
+  --bg3:         #111827;
+  --surface:     #161d2b;
+  --surface2:    #1c2535;
+  --border:      rgba(255,255,255,0.06);
+  --border2:     rgba(255,255,255,0.12);
+
+  --text:        #e8edf5;
+  --muted:       #6b7a99;
+  --subtle:      #3a4560;
+
+  --accent:      #10b981;
+  --accent2:     #34d399;
+  --green:       #34d399;
+  --yellow:      #fbbf24;
+  --red:         #f87171;
+  --purple:      #a78bfa;
+  --blue:        #4f8ef7;
+
+  --radius:      10px;
+  --radius-lg:   16px;
+  --sidebar-w:   252px;
+  --transition:  0.2s cubic-bezier(0.4,0,0.2,1);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  display:flex;
+  height:100vh;
+  overflow:hidden;
+  font-size:14px;
+}
+
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--subtle);border-radius:10px;}
+
+/* SIDEBAR */
+.sidebar{
+  width:var(--sidebar-w);
+  background:var(--bg2);
+  border-right:1px solid var(--border);
+  display:flex;
+  flex-direction:column;
+  padding:0;
+  flex-shrink:0;
+  position:relative;
+  overflow:hidden;
+}
+
+.sidebar::before{
+  content:'';
+  position:absolute;
+  top:-60px;left:-60px;
+  width:200px;height:200px;
+  background:radial-gradient(circle, rgba(16,185,129,0.12) 0%, transparent 70%);
+  pointer-events:none;
+}
+
+.sidebar-logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:22px 20px 18px;
+  border-bottom:1px solid var(--border);
+}
+
+.logo-icon{
+  width:32px;height:32px;
+  background:linear-gradient(135deg,#10b981,#34d399);
+  border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:15px;
+  flex-shrink:0;
+  box-shadow:0 0 16px rgba(16,185,129,0.35);
+}
+
+.logo-text{
+  font-size:16px;
+  font-weight:700;
+  letter-spacing:0.3px;
+}
+
+.logo-text span{color:var(--accent2);}
+
+.grade-section{padding:16px 14px 10px;}
+
+.grade-label{
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:8px;
+  padding:0 6px;
+}
+
+.grade-pills{display:flex;gap:6px;}
+
+.grade-pill{
+  flex:1;
+  padding:8px 4px;
+  border:1px solid var(--border);
+  background:var(--surface);
+  color:var(--muted);
+  border-radius:8px;
+  cursor:pointer;
+  font-size:13px;
+  font-family:'DM Sans',sans-serif;
+  font-weight:500;
+  transition:var(--transition);
+  text-align:center;
+}
+
+.grade-pill:hover{border-color:var(--border2);color:var(--text);}
+
+.grade-pill.active{
+  background:rgba(16,185,129,0.15);
+  border-color:rgba(16,185,129,0.4);
+  color:var(--accent2);
+}
+
+.nav-section{padding:14px 14px 6px;flex:1;}
+
+.nav-label{
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:8px;
+  padding:0 6px;
+}
+
+.nav-btn{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  width:100%;
+  padding:10px 12px;
+  border:none;
+  background:none;
+  color:var(--muted);
+  border-radius:8px;
+  cursor:pointer;
+  font-family:'DM Sans',sans-serif;
+  font-size:14px;
+  font-weight:500;
+  transition:var(--transition);
+  margin-bottom:2px;
+  text-align:left;
+  position:relative;
+}
+
+.nav-btn .icon{
+  width:20px;height:20px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;
+  flex-shrink:0;
+}
+
+.nav-btn:hover{background:var(--surface);color:var(--text);}
+
+.nav-btn.active{
+  background:rgba(16,185,129,0.12);
+  color:var(--accent2);
+}
+
+.nav-btn.active::before{
+  content:'';
+  position:absolute;
+  left:0;top:20%;bottom:20%;
+  width:3px;
+  background:var(--accent);
+  border-radius:0 3px 3px 0;
+}
+
+.nav-badge{
+  margin-left:auto;
+  background:var(--surface2);
+  color:var(--muted);
+  font-size:11px;
+  padding:1px 7px;
+  border-radius:20px;
+  font-family:'DM Mono',monospace;
+}
+
+.nav-btn.active .nav-badge{
+  background:rgba(16,185,129,0.2);
+  color:var(--accent2);
+}
+
+.user-block{
+  margin:10px 14px 18px;
+  padding:12px;
+  background:var(--surface);
+  border-radius:var(--radius);
+  border:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.user-avatar{
+  width:34px;height:34px;
+  background:linear-gradient(135deg,#10b981,#a78bfa);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;
+  font-weight:700;
+  flex-shrink:0;
+}
+
+.user-info{flex:1;min-width:0;}
+
+.user-name{
+  font-size:13px;font-weight:600;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+
+.user-role{font-size:11px;color:var(--muted);}
+
+.logout-btn{
+  width:26px;height:26px;
+  border:none;background:transparent;
+  color:var(--muted);cursor:pointer;
+  border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;
+  transition:var(--transition);
+  flex-shrink:0;
+}
+
+.logout-btn:hover{background:rgba(248,113,113,0.15);color:var(--red);}
+
+/* MAIN */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+
+.topbar{
+  display:flex;align-items:center;gap:14px;
+  padding:16px 30px;
+  border-bottom:1px solid var(--border);
+  background:var(--bg2);
+  flex-shrink:0;
+}
+
+.page-title{font-size:15px;font-weight:600;color:var(--text);}
+.page-subtitle{font-size:12px;color:var(--muted);margin-left:2px;}
+
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:10px;}
+
+.search-wrap{position:relative;}
+
+.search-wrap .search-icon{
+  position:absolute;left:10px;top:50%;
+  transform:translateY(-50%);
+  color:var(--muted);font-size:13px;pointer-events:none;
+}
+
+.search-input{
+  background:var(--surface);
+  border:1px solid var(--border);
+  color:var(--text);
+  border-radius:8px;
+  padding:8px 12px 8px 32px;
+  width:210px;
+  font-family:'DM Sans',sans-serif;
+  font-size:13px;
+  transition:var(--transition);
+  outline:none;
+}
+
+.search-input::placeholder{color:var(--muted);}
+
+.search-input:focus{
+  border-color:rgba(16,185,129,0.4);
+  background:var(--surface2);
+  width:240px;
+}
+
+.content-area{flex:1;padding:28px 30px;overflow-y:auto;}
+
+/* EMPTY STATE */
+.empty-state{
+  height:100%;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;gap:14px;padding:40px;
+}
+
+.empty-icon{font-size:52px;opacity:0.4;}
+
+.empty-state h2{font-size:18px;font-weight:600;color:var(--text);}
+.empty-state p{color:var(--muted);font-size:14px;max-width:300px;line-height:1.6;}
+
+/* STATS */
+.section-header{
+  display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;
+}
+
+.section-title{
+  font-size:13px;font-weight:600;
+  text-transform:uppercase;letter-spacing:0.8px;color:var(--muted);
+}
+
+.stats-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px;
+}
+
+.stat-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius-lg);padding:18px 20px;
+  position:relative;overflow:hidden;transition:var(--transition);
+}
+
+.stat-card:hover{border-color:var(--border2);transform:translateY(-2px);}
+
+.stat-card::after{
+  content:'';position:absolute;top:0;right:0;
+  width:80px;height:80px;border-radius:50%;
+  opacity:0.08;transform:translate(25px,-25px);
+}
+
+.stat-card.blue::after{background:var(--blue);}
+.stat-card.green::after{background:var(--green);}
+.stat-card.yellow::after{background:var(--yellow);}
+.stat-card.purple::after{background:var(--purple);}
+
+.stat-icon{font-size:18px;margin-bottom:12px;}
+.stat-value{font-size:28px;font-weight:700;line-height:1;margin-bottom:4px;font-family:'DM Mono',monospace;}
+.stat-label{font-size:12px;color:var(--muted);}
+.stat-sub{font-size:11px;color:var(--muted);margin-top:6px;display:flex;align-items:center;gap:4px;}
+.stat-sub .up{color:var(--green);}
+.stat-sub .down{color:var(--red);}
+
+.dash-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px;}
+
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;}
+
+.panel-header{
+  padding:14px 18px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+}
+
+.panel-title{font-size:13px;font-weight:600;}
+
+.panel-action{
+  font-size:12px;color:var(--accent);cursor:pointer;
+  border:none;background:none;font-family:'DM Sans',sans-serif;transition:var(--transition);
+}
+.panel-action:hover{color:var(--accent2);}
+
+.panel-body{padding:6px 0;}
+
+.mini-row{display:flex;align-items:center;gap:12px;padding:9px 18px;transition:var(--transition);}
+.mini-row:hover{background:var(--surface2);}
+
+.mini-avatar{
+  width:28px;height:28px;border-radius:50%;
+  background:var(--surface2);display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:600;flex-shrink:0;
+}
+
+.mini-name{flex:1;font-size:13px;}
+.mini-score{font-family:'DM Mono',monospace;font-size:13px;font-weight:500;}
+
+.bar-wrap{margin-bottom:4px;}
+.bar-label{display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px;}
+.bar-label span:last-child{font-family:'DM Mono',monospace;color:var(--muted);}
+.bar-track{height:6px;background:var(--surface2);border-radius:10px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:10px;transition:width 0.8s cubic-bezier(0.4,0,0.2,1);}
+
+.activity-item{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:10px 18px;border-bottom:1px solid var(--border);transition:var(--transition);
+}
+.activity-item:last-child{border-bottom:none;}
+.activity-item:hover{background:var(--surface2);}
+.activity-dot{width:8px;height:8px;border-radius:50%;margin-top:5px;flex-shrink:0;}
+.activity-text{font-size:13px;line-height:1.5;}
+.activity-time{font-size:11px;color:var(--muted);margin-top:1px;}
+
+/* BOLETINES */
+.table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;}
+
+.table-toolbar{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;}
+
+.filter-btn{
+  padding:6px 12px;border-radius:6px;
+  border:1px solid var(--border);background:var(--surface2);
+  color:var(--muted);font-size:12px;font-family:'DM Sans',sans-serif;
+  cursor:pointer;transition:var(--transition);
+}
+.filter-btn:hover{color:var(--text);border-color:var(--border2);}
+.filter-btn.active{background:rgba(16,185,129,0.15);border-color:rgba(16,185,129,0.4);color:var(--accent2);}
+
+.export-btn{
+  margin-left:auto;padding:7px 14px;border-radius:7px;
+  border:1px solid var(--border2);background:var(--surface2);
+  color:var(--text);font-size:12px;font-family:'DM Sans',sans-serif;
+  cursor:pointer;transition:var(--transition);display:flex;align-items:center;gap:6px;
+}
+.export-btn:hover{background:var(--accent);border-color:var(--accent);}
+
+table{width:100%;border-collapse:collapse;}
+thead tr{background:var(--bg2);}
+
+th{
+  padding:11px 16px;text-align:left;
+  font-size:11px;font-weight:600;
+  text-transform:uppercase;letter-spacing:0.7px;
+  color:var(--muted);border-bottom:1px solid var(--border);
+  cursor:pointer;user-select:none;white-space:nowrap;
+}
+th:hover{color:var(--text);}
+th .sort-icon{margin-left:4px;opacity:0.4;font-size:10px;}
+th.sorted .sort-icon{opacity:1;color:var(--accent);}
+
+td{padding:12px 16px;border-bottom:1px solid var(--border);font-size:13px;}
+tbody tr:last-child td{border-bottom:none;}
+tbody tr{transition:var(--transition);}
+tbody tr:hover{background:var(--surface2);}
+
+.rank{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);width:36px;}
+
+.student-cell{display:flex;align-items:center;gap:10px;}
+
+.s-avatar{
+  width:30px;height:30px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;flex-shrink:0;
+}
+
+.s-name{font-weight:500;}
+
+.nota{font-family:'DM Mono',monospace;font-size:13px;font-weight:500;}
+
+.badge{
+  display:inline-flex;align-items:center;gap:4px;
+  padding:3px 8px;border-radius:20px;font-size:11px;font-weight:500;
+}
+.badge.alto{background:rgba(52,211,153,0.12);color:var(--green);}
+.badge.medio{background:rgba(251,191,36,0.12);color:var(--yellow);}
+.badge.bajo{background:rgba(248,113,113,0.12);color:var(--red);}
+
+.nota.alto{color:var(--green);}
+.nota.medio{color:var(--yellow);}
+.nota.bajo{color:var(--red);}
+
+.prom-bar{display:flex;align-items:center;gap:8px;}
+.prom-bar .mini-track{flex:1;height:4px;background:var(--surface2);border-radius:10px;overflow:hidden;min-width:50px;}
+.prom-bar .mini-fill{height:100%;border-radius:10px;}
+
+.edit-nota{
+  width:52px;background:var(--surface2);
+  border:1px solid transparent;color:var(--text);
+  border-radius:5px;padding:3px 6px;
+  font-family:'DM Mono',monospace;font-size:13px;
+  text-align:center;transition:var(--transition);outline:none;
+}
+.edit-nota:focus{border-color:rgba(16,185,129,0.4);background:var(--bg3);}
+
+@keyframes flash{0%{background:rgba(52,211,153,0.2);}100%{background:transparent;}}
+.saved{animation:flash 0.6s ease;}
+
+/* TAREAS */
+.tasks-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+
+.task-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius-lg);padding:18px;
+  display:flex;flex-direction:column;gap:10px;
+  transition:var(--transition);cursor:pointer;position:relative;overflow:hidden;
+}
+
+.task-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.task-card.mat::before{background:var(--blue);}
+.task-card.esp::before{background:var(--purple);}
+.task-card.ing::before{background:var(--green);}
+.task-card.bio::before{background:var(--yellow);}
+.task-card.hist::before{background:var(--red);}
+.task-card.quim::before{background:#fb923c;}
+.task-card.fis::before{background:#38bdf8;}
+.task-card.art::before{background:#f472b6;}
+
+.task-card:hover{border-color:var(--border2);transform:translateY(-3px);}
+
+.task-subject{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--muted);}
+.task-name{font-size:14px;font-weight:600;line-height:1.4;}
+.task-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:auto;}
+.task-due{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:4px;}
+
+.task-check{
+  width:22px;height:22px;border-radius:50%;
+  border:2px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:var(--transition);font-size:11px;color:transparent;
+}
+.task-check:hover{border-color:var(--green);color:var(--green);}
+.task-check.done{background:var(--green);border-color:var(--green);color:#000;}
+
+.add-task-btn{
+  display:flex;align-items:center;gap:8px;
+  padding:14px 18px;background:var(--surface);
+  border:1px dashed var(--border2);border-radius:var(--radius-lg);
+  color:var(--muted);font-size:13px;font-family:'DM Sans',sans-serif;
+  cursor:pointer;transition:var(--transition);width:100%;margin-top:14px;
+}
+.add-task-btn:hover{color:var(--text);border-color:var(--accent);background:rgba(16,185,129,0.05);}
+
+/* EVENTOS */
+.events-layout{display:grid;grid-template-columns:1fr 320px;gap:18px;}
+
+.event-item{
+  display:flex;gap:16px;padding:16px 18px;
+  border-bottom:1px solid var(--border);transition:var(--transition);align-items:flex-start;
+}
+.event-item:last-child{border-bottom:none;}
+.event-item:hover{background:var(--surface2);}
+
+.event-date-box{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  width:44px;height:48px;background:var(--surface2);
+  border-radius:8px;border:1px solid var(--border);flex-shrink:0;
+}
+
+.ev-day{font-size:18px;font-weight:700;font-family:'DM Mono',monospace;line-height:1;}
+.ev-mon{font-size:9px;text-transform:uppercase;color:var(--muted);letter-spacing:0.5px;}
+
+.event-info{flex:1;}
+.event-title{font-size:14px;font-weight:600;margin-bottom:3px;}
+.event-desc{font-size:12px;color:var(--muted);line-height:1.5;}
+
+.event-tag{padding:3px 8px;border-radius:20px;font-size:11px;font-weight:500;flex-shrink:0;}
+.event-tag.examen{background:rgba(248,113,113,0.12);color:var(--red);}
+.event-tag.reunion{background:rgba(251,191,36,0.12);color:var(--yellow);}
+.event-tag.entrega{background:rgba(52,211,153,0.12);color:var(--green);}
+.event-tag.ensayo{background:rgba(167,139,250,0.12);color:var(--purple);}
+.event-tag.cultural{background:rgba(56,189,248,0.12);color:#38bdf8;}
+
+.mini-cal{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px;}
+
+.cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.cal-month{font-size:14px;font-weight:600;}
+
+.cal-nav{
+  border:none;background:none;color:var(--muted);cursor:pointer;
+  font-size:16px;padding:2px 6px;border-radius:5px;transition:var(--transition);
+}
+.cal-nav:hover{color:var(--text);background:var(--surface2);}
+
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;}
+
+.cal-dow{
+  text-align:center;font-size:10px;font-weight:600;
+  text-transform:uppercase;letter-spacing:0.5px;
+  color:var(--muted);padding:4px 0 6px;
+}
+
+.cal-day{
+  text-align:center;padding:6px 2px;font-size:12px;
+  border-radius:6px;cursor:pointer;transition:var(--transition);line-height:1;
+}
+.cal-day:hover{background:var(--surface2);}
+.cal-day.other{color:var(--subtle);}
+.cal-day.today{background:rgba(16,185,129,0.2);color:var(--accent2);font-weight:700;}
+.cal-day.has-event{position:relative;}
+.cal-day.has-event::after{
+  content:'';position:absolute;bottom:2px;left:50%;
+  transform:translateX(-50%);width:4px;height:4px;
+  border-radius:50%;background:var(--accent);
+}
+
+/* MODAL */
+.modal-overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(6,9,16,0.8);backdrop-filter:blur(6px);
+  z-index:1000;align-items:center;justify-content:center;
+}
+.modal-overlay.open{display:flex;}
+
+.modal{
+  background:var(--surface);border:1px solid var(--border2);
+  border-radius:var(--radius-lg);padding:28px;
+  width:400px;max-width:90vw;
+  animation:modalIn 0.25s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+@keyframes modalIn{from{opacity:0;transform:scale(0.9) translateY(10px);}to{opacity:1;transform:scale(1) translateY(0);}}
+
+.modal-title{font-size:16px;font-weight:600;margin-bottom:20px;}
+
+.form-group{margin-bottom:14px;}
+
+.form-label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px;}
+
+.form-input,.form-select{
+  width:100%;padding:10px 12px;
+  background:var(--bg3);border:1px solid var(--border2);
+  border-radius:8px;color:var(--text);
+  font-family:'DM Sans',sans-serif;font-size:14px;
+  outline:none;transition:var(--transition);
+}
+.form-input:focus,.form-select:focus{border-color:rgba(16,185,129,0.5);}
+.form-select option{background:var(--bg3);}
+
+.modal-actions{display:flex;gap:10px;margin-top:20px;}
+
+.btn-cancel{
+  flex:1;padding:10px;border:1px solid var(--border2);
+  background:transparent;color:var(--muted);border-radius:8px;
+  cursor:pointer;font-family:'DM Sans',sans-serif;font-size:14px;transition:var(--transition);
+}
+.btn-cancel:hover{color:var(--text);}
+
+.btn-confirm{
+  flex:1;padding:10px;border:none;
+  background:var(--accent);color:#fff;border-radius:8px;
+  cursor:pointer;font-family:'DM Sans',sans-serif;
+  font-size:14px;font-weight:600;transition:var(--transition);
+}
+.btn-confirm:hover{background:var(--accent2);}
+
+/* TOAST */
+.toast-wrap{position:fixed;bottom:24px;right:24px;z-index:2000;display:flex;flex-direction:column;gap:8px;}
+
+.toast{
+  background:var(--surface2);border:1px solid var(--border2);
+  border-radius:10px;padding:12px 18px;font-size:13px;
+  display:flex;align-items:center;gap:8px;
+  animation:toastIn 0.3s cubic-bezier(0.34,1.56,0.64,1);max-width:300px;
+}
+
+@keyframes toastIn{from{opacity:0;transform:translateX(30px);}to{opacity:1;transform:translateX(0);}}
+
+.toast.success{border-left:3px solid var(--green);}
+.toast.info{border-left:3px solid var(--accent);}
+.toast.warn{border-left:3px solid var(--yellow);}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+
+.fade-up{animation:fadeUp 0.35s ease forwards;opacity:0;}
+.fade-up:nth-child(1){animation-delay:0s;}
+.fade-up:nth-child(2){animation-delay:0.05s;}
+.fade-up:nth-child(3){animation-delay:0.10s;}
+.fade-up:nth-child(4){animation-delay:0.15s;}
+.fade-up:nth-child(5){animation-delay:0.20s;}
+.fade-up:nth-child(6){animation-delay:0.25s;}
+
+.divider{height:1px;background:var(--border);margin:20px 0;}
+
+@media(max-width:900px){
+  .stats-grid{grid-template-columns:1fr 1fr;}
+  .dash-row{grid-template-columns:1fr;}
+  .tasks-grid{grid-template-columns:1fr 1fr;}
+  .events-layout{grid-template-columns:1fr;}
+}
+
+@media(max-width:600px){
+  :root{--sidebar-w:0px;}
+  .sidebar{display:none;}
+  .tasks-grid{grid-template-columns:1fr;}
+  .content-area{padding:18px 16px;}
+  .topbar{padding:12px 16px;}
+}
+
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon">🏫</div>
+    <div class="logo-text">School<span>Net</span></div>
+  </div>
+
+  <div class="grade-section">
+    <div class="grade-label">Grado</div>
+    <div class="grade-pills">
+      <button class="grade-pill" onclick="setGrado(9,this)">9°</button>
+      <button class="grade-pill" onclick="setGrado(10,this)">10°</button>
+    </div>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">Menú</div>
+    <button class="nav-btn active" id="nav-inicio" onclick="nav(this,'inicio')">
+      <span class="icon">🏠</span> Inicio
+    </button>
+    <button class="nav-btn" id="nav-boletines" onclick="nav(this,'boletines')">
+      <span class="icon">📊</span> Boletines
+      <span class="nav-badge" id="badge-boletines">–</span>
+    </button>
+    <button class="nav-btn" id="nav-tareas" onclick="nav(this,'tareas')">
+      <span class="icon">📘</span> Tareas
+      <span class="nav-badge" id="badge-tareas">–</span>
+    </button>
+    <button class="nav-btn" id="nav-eventos" onclick="nav(this,'eventos')">
+      <span class="icon">📅</span> Eventos
+      <span class="nav-badge" id="badge-eventos">–</span>
+    </button>
+  </div>
+
+  <div class="user-block">
+    <div class="user-avatar">RC</div>
+    <div class="user-info">
+      <div class="user-name">Rector Central</div>
+      <div class="user-role">Administrador</div>
+    </div>
+    <button class="logout-btn" onclick="salir()" title="Cerrar sesión">↩</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <div class="topbar">
+    <div>
+      <div class="page-title" id="page-title">Panel Principal</div>
+      <div class="page-subtitle" id="page-subtitle">Instituto Central</div>
+    </div>
+    <div class="topbar-right">
+      <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" class="search-input" id="searchInput" placeholder="Buscar estudiante…" oninput="buscar(this.value)">
+      </div>
+    </div>
+  </div>
+
+  <div class="content-area" id="contentArea">
+    <div class="empty-state">
+      <div class="empty-icon">🏫</div>
+      <h2>Selecciona un grado</h2>
+      <p>Elige grado 9° o 10° en el panel lateral para ver la información del curso.</p>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-title" id="modalTitle">Agregar tarea</div>
+    <div id="modalBody"></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
+      <button class="btn-confirm" id="modalConfirm">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOASTS -->
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script>
+/* ===================================================
+   DATA — INSTITUTO CENTRAL
+=================================================== */
+const data = {
+  9:{
+    estudiantes:[
+      {name:"Alejandra Moreno",  fis:4.3, mat:4.1, ing:4.0},
+      {name:"Ricardo Fuentes",   fis:3.8, mat:3.6, ing:3.9},
+      {name:"Gabriela Salcedo",  fis:4.7, mat:4.8, ing:4.6},
+      {name:"Esteban Quintero",  fis:4.2, mat:4.0, ing:4.3},
+      {name:"Mariana Ospina",    fis:4.9, mat:4.8, ing:5.0},
+      {name:"Simón Alvarado",    fis:3.7, mat:3.9, ing:3.8},
+      {name:"Daniela Cárdenas",  fis:4.5, mat:4.4, ing:4.6},
+      {name:"Jerónimo Ríos",     fis:4.0, mat:4.2, ing:4.1},
+      {name:"Valentina Muñoz",   fis:4.6, mat:4.7, ing:4.5},
+      {name:"Sebastián Arango",  fis:3.9, mat:4.0, ing:3.7},
+      {name:"Paula Montoya",     fis:4.4, mat:4.3, ing:4.5},
+      {name:"Nicolás Bedoya",    fis:4.8, mat:4.9, ing:4.7},
+      {name:"Luciana Zapata",    fis:3.6, mat:3.7, ing:3.8},
+      {name:"Mateo Londoño",     fis:4.5, mat:4.4, ing:4.6},
+      {name:"Sara Gutiérrez",    fis:4.2, mat:4.3, ing:4.1}
+    ],
+    tareas:[
+      {id:1, name:"Taller de movimiento rectilíneo",  subject:"fis",  due:"21 abr", done:false},
+      {id:2, name:"Ejercicios de ecuaciones",          subject:"mat",  due:"22 abr", done:false},
+      {id:3, name:"Reading comprehension unit 3",     subject:"ing",  due:"24 abr", done:true },
+      {id:4, name:"Mapa político de América",         subject:"geo",  due:"25 abr", done:false},
+      {id:5, name:"Reseña literaria – García Márquez",subject:"esp",  due:"27 abr", done:false},
+      {id:6, name:"Práctica de laboratorio: mezclas", subject:"quim", due:"29 abr", done:false}
+    ],
+    eventos:[
+      {day:21, mon:"ABR", title:"Examen de Física",         desc:"Temas: cinemática y dinámica.",        tag:"examen"},
+      {day:24, mon:"ABR", title:"Feria de Ciencias",        desc:"Exposición proyectos – Patio central.", tag:"cultural"},
+      {day:27, mon:"ABR", title:"Reunión de Padres 9°",     desc:"Salón principal — 5:30 PM.",           tag:"reunion"},
+      {day:29, mon:"ABR", title:"Entrega de Trabajos",      desc:"Plazo final del tercer periodo.",       tag:"entrega"}
+    ]
+  },
+  10:{
+    estudiantes:[
+      {name:"Camilo Pedraza",    fis:4.6, mat:4.5, ing:4.7},
+      {name:"Isabella Vargas",   fis:4.9, mat:4.8, ing:5.0},
+      {name:"Tomás Escobar",     fis:3.8, mat:3.9, ing:3.7},
+      {name:"Sofía Castillo",    fis:4.4, mat:4.5, ing:4.3},
+      {name:"Andrés Patiño",     fis:4.0, mat:3.9, ing:4.1},
+      {name:"María Paula Ossa",  fis:4.7, mat:4.6, ing:4.8},
+      {name:"Juan Felipe Mora",  fis:3.6, mat:3.8, ing:3.7},
+      {name:"Catalina Giraldo",  fis:4.5, mat:4.4, ing:4.6},
+      {name:"Samuel Herrera",    fis:4.2, mat:4.3, ing:4.1},
+      {name:"Valeria Acosta",    fis:4.8, mat:4.9, ing:4.7},
+      {name:"Diego Restrepo",    fis:4.1, mat:4.0, ing:4.2},
+      {name:"Natalia Correa",    fis:4.6, mat:4.7, ing:4.5},
+      {name:"Julián Hoyos",      fis:3.9, mat:3.8, ing:4.0},
+      {name:"Ana Lucía Mejía",   fis:4.5, mat:4.4, ing:4.6},
+      {name:"Esteban Trujillo",  fis:4.3, mat:4.2, ing:4.4}
+    ],
+    tareas:[
+      {id:1, name:"Proyecto de Física – energías",    subject:"fis",  due:"20 abr", done:false},
+      {id:2, name:"Parcial de Cálculo diferencial",   subject:"mat",  due:"23 abr", done:false},
+      {id:3, name:"Essay: environmental issues",      subject:"ing",  due:"25 abr", done:true },
+      {id:4, name:"Ensayo: Revolución Industrial",    subject:"hist", due:"26 abr", done:false},
+      {id:5, name:"Informe de laboratorio química",   subject:"quim", due:"28 abr", done:false},
+      {id:6, name:"Taller de arte contemporáneo",     subject:"art",  due:"30 abr", done:false}
+    ],
+    eventos:[
+      {day:20, mon:"ABR", title:"Pre-icfes Institucional",  desc:"Duración 3 horas — llevar lápiz.",    tag:"examen"},
+      {day:23, mon:"ABR", title:"Clausura Cultural",        desc:"Presentaciones artísticas — 4 PM.",   tag:"cultural"},
+      {day:26, mon:"ABR", title:"Entrega de Boletines",     desc:"Reunión de padres grado 10°.",        tag:"entrega"},
+      {day:30, mon:"ABR", title:"Día del Maestro",          desc:"No hay clases — actividad especial.", tag:"reunion"}
+    ]
+  }
+};
+
+/* ===================================================
+   STATE
+=================================================== */
+let grado = null;
+let currentSec = 'inicio';
+let sortCol = null;
+let sortDir = 1;
+let filterLevel = 'all';
+let taskNextId = 100;
+
+function loadState(){
+  try{
+    const saved = localStorage.getItem('schoolnet_central_data');
+    if(saved){
+      const parsed = JSON.parse(saved);
+      [9,10].forEach(g=>{
+        if(parsed[g]){
+          parsed[g].estudiantes.forEach((e,i)=>{
+            data[g].estudiantes[i].fis = e.fis;
+            data[g].estudiantes[i].mat = e.mat;
+            data[g].estudiantes[i].ing = e.ing;
+          });
+          if(parsed[g].tareas) data[g].tareas = parsed[g].tareas;
+        }
+      });
+    }
+  }catch(e){}
+}
+
+function saveState(){
+  try{
+    const toSave = {};
+    [9,10].forEach(g=>{
+      toSave[g] = {
+        estudiantes: data[g].estudiantes.map(e=>({fis:e.fis,mat:e.mat,ing:e.ing})),
+        tareas: data[g].tareas
+      };
+    });
+    localStorage.setItem('schoolnet_central_data',JSON.stringify(toSave));
+  }catch(e){}
+}
+
+loadState();
+
+/* ===================================================
+   HELPERS
+=================================================== */
+const prom = e => +((e.fis + e.mat + e.ing)/3).toFixed(2);
+
+function notaClass(n){
+  if(n >= 4.5) return 'alto';
+  if(n >= 4.0) return 'medio';
+  return 'bajo';
+}
+
+function notaLabel(n){
+  if(n >= 4.5) return '⬆ Alto';
+  if(n >= 4.0) return '→ Medio';
+  return '⬇ Bajo';
+}
+
+function initials(name){
+  return name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+}
+
+const avatarColors = [
+  '#10b981','#34d399','#fbbf24','#f87171','#a78bfa',
+  '#fb923c','#38bdf8','#f472b6','#4ade80','#4f8ef7'
+];
+
+function avatarColor(name){
+  let h = 0;
+  for(let c of name) h = (h * 31 + c.charCodeAt(0)) & 0xffffffff;
+  return avatarColors[Math.abs(h) % avatarColors.length];
+}
+
+function subjectLabel(s){
+  const map={
+    fis:'Física', mat:'Matemáticas', ing:'Inglés',
+    esp:'Español', bio:'Biología', quim:'Química',
+    hist:'Historia', geo:'Geografía', art:'Arte'
+  };
+  return map[s]||s;
+}
+
+/* ===================================================
+   NAV
+=================================================== */
+function setGrado(g, btn){
+  grado = g;
+  document.querySelectorAll('.grade-pill').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  updateBadges();
+  render(currentSec);
+}
+
+function nav(btn, sec){
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  currentSec = sec;
+  filterLevel = 'all';
+  sortCol = null;
+  document.getElementById('searchInput').value = '';
+  render(sec);
+}
+
+function updateBadges(){
+  if(!grado) return;
+  document.getElementById('badge-boletines').textContent = data[grado].estudiantes.length;
+  document.getElementById('badge-tareas').textContent    = data[grado].tareas.filter(t=>!t.done).length;
+  document.getElementById('badge-eventos').textContent   = data[grado].eventos.length;
+}
+
+/* ===================================================
+   RENDER DISPATCHER
+=================================================== */
+function render(sec){
+  const area = document.getElementById('contentArea');
+  const titles = {inicio:'Panel Principal',boletines:'Boletines Académicos',tareas:'Tareas',eventos:'Eventos del Periodo'};
+  document.getElementById('page-title').textContent = titles[sec]||sec;
+  document.getElementById('page-subtitle').textContent = grado
+    ? `Grado ${grado}° · Instituto Central`
+    : 'Instituto Central';
+
+  if(!grado){
+    area.innerHTML = `<div class="empty-state"><div class="empty-icon">🏫</div><h2>Selecciona un grado</h2><p>Elige grado 9° o 10° en el panel lateral para ver la información del curso.</p></div>`;
+    return;
+  }
+
+  if(sec === 'inicio')    renderInicio(area);
+  if(sec === 'boletines') renderBoletines(area);
+  if(sec === 'tareas')    renderTareas(area);
+  if(sec === 'eventos')   renderEventos(area);
+}
+
+/* ===================================================
+   INICIO
+=================================================== */
+function renderInicio(area){
+  const d = data[grado];
+  const proms = d.estudiantes.map(prom);
+  const avg = (proms.reduce((a,b)=>a+b,0)/proms.length).toFixed(2);
+  const altos  = d.estudiantes.filter(e=>prom(e)>=4.5).length;
+  const medios = d.estudiantes.filter(e=>prom(e)>=4.0&&prom(e)<4.5).length;
+  const bajos  = d.estudiantes.filter(e=>prom(e)<4.0).length;
+  const top5   = [...d.estudiantes].sort((a,b)=>prom(b)-prom(a)).slice(0,5);
+  const tareasP = d.tareas.filter(t=>!t.done).length;
+
+  const fisAvg = (d.estudiantes.reduce((a,e)=>a+e.fis,0)/d.estudiantes.length).toFixed(2);
+  const matAvg = (d.estudiantes.reduce((a,e)=>a+e.mat,0)/d.estudiantes.length).toFixed(2);
+  const ingAvg = (d.estudiantes.reduce((a,e)=>a+e.ing,0)/d.estudiantes.length).toFixed(2);
+
+  area.innerHTML = `
+  <div class="stats-grid">
+    <div class="stat-card blue fade-up">
+      <div class="stat-icon">👥</div>
+      <div class="stat-value">${d.estudiantes.length}</div>
+      <div class="stat-label">Estudiantes</div>
+      <div class="stat-sub"><span class="up">↑</span> Grado ${grado}°</div>
+    </div>
+    <div class="stat-card green fade-up">
+      <div class="stat-icon">📈</div>
+      <div class="stat-value">${avg}</div>
+      <div class="stat-label">Promedio General</div>
+      <div class="stat-sub">Sobre 5.0</div>
+    </div>
+    <div class="stat-card yellow fade-up">
+      <div class="stat-icon">📘</div>
+      <div class="stat-value">${tareasP}</div>
+      <div class="stat-label">Tareas Pendientes</div>
+      <div class="stat-sub">${d.tareas.length - tareasP} completadas</div>
+    </div>
+    <div class="stat-card purple fade-up">
+      <div class="stat-icon">⚡</div>
+      <div class="stat-value">${altos}</div>
+      <div class="stat-label">En Nivel Alto</div>
+      <div class="stat-sub"><span class="down">⚠</span> ${bajos} en riesgo</div>
+    </div>
+  </div>
+
+  <div class="dash-row">
+    <div class="panel fade-up">
+      <div class="panel-header">
+        <div class="panel-title">🏆 Top 5 Estudiantes</div>
+        <button class="panel-action" onclick="nav(document.getElementById('nav-boletines'),'boletines')">Ver todos →</button>
+      </div>
+      <div class="panel-body">
+        ${top5.map(e=>{
+          const p = prom(e);
+          const cls = notaClass(p);
+          return `<div class="mini-row">
+            <div class="mini-avatar" style="background:${avatarColor(e.name)};color:#000">${initials(e.name)}</div>
+            <div class="mini-name">${e.name}</div>
+            <div class="mini-score nota ${cls}">${p}</div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+
+    <div class="panel fade-up">
+      <div class="panel-header">
+        <div class="panel-title">📊 Promedio por Materia</div>
+      </div>
+      <div class="panel-body" style="padding:14px 18px;">
+        ${[
+          {label:'Física',        val:+fisAvg, color:'var(--accent)'},
+          {label:'Matemáticas',   val:+matAvg, color:'var(--blue)'},
+          {label:'Inglés',        val:+ingAvg, color:'var(--purple)'}
+        ].map(m=>`
+          <div class="bar-wrap" style="margin-bottom:14px;">
+            <div class="bar-label"><span>${m.label}</span><span>${m.val}</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:${(m.val/5)*100}%;background:${m.color}"></div></div>
+          </div>
+        `).join('')}
+
+        <div class="divider" style="margin:16px 0 14px;"></div>
+        <div style="display:flex;justify-content:space-around;text-align:center;">
+          <div><div style="font-size:22px;font-weight:700;color:var(--green)">${altos}</div><div style="font-size:11px;color:var(--muted)">Alto ≥4.5</div></div>
+          <div><div style="font-size:22px;font-weight:700;color:var(--yellow)">${medios}</div><div style="font-size:11px;color:var(--muted)">Medio ≥4.0</div></div>
+          <div><div style="font-size:22px;font-weight:700;color:var(--red)">${bajos}</div><div style="font-size:11px;color:var(--muted)">Bajo &lt;4.0</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel fade-up">
+    <div class="panel-header">
+      <div class="panel-title">📅 Próximos Eventos</div>
+      <button class="panel-action" onclick="nav(document.getElementById('nav-eventos'),'eventos')">Ver todos →</button>
+    </div>
+    <div class="panel-body">
+      ${d.eventos.slice(0,3).map(ev=>`
+        <div class="activity-item">
+          <div class="activity-dot" style="background:var(--accent)"></div>
+          <div class="activity-text">
+            <strong>${ev.title}</strong>
+            <div class="activity-time">📅 ${ev.day} ${ev.mon} — ${ev.desc}</div>
+          </div>
+          <span class="event-tag ${ev.tag}">${ev.tag}</span>
+        </div>
+      `).join('')}
+    </div>
+  </div>
+  `;
+}
+
+/* ===================================================
+   BOLETINES
+=================================================== */
+function renderBoletines(area, filter='all', query=''){
+  const d = data[grado];
+  let lista = [...d.estudiantes];
+
+  if(query) lista = lista.filter(e=>e.name.toLowerCase().includes(query.toLowerCase()));
+  if(filter==='alto')  lista = lista.filter(e=>prom(e)>=4.5);
+  if(filter==='medio') lista = lista.filter(e=>prom(e)>=4.0&&prom(e)<4.5);
+  if(filter==='bajo')  lista = lista.filter(e=>prom(e)<4.0);
+
+  if(sortCol){
+    lista.sort((a,b)=>{
+      const va = sortCol==='name'?a.name:(sortCol==='prom'?prom(a):a[sortCol]);
+      const vb = sortCol==='name'?b.name:(sortCol==='prom'?prom(b):b[sortCol]);
+      if(typeof va==='string') return va.localeCompare(vb)*sortDir;
+      return (va-vb)*sortDir;
+    });
+  }
+
+  const filters = [
+    {key:'all',  label:'Todos'},
+    {key:'alto', label:'🟢 Alto'},
+    {key:'medio',label:'🟡 Medio'},
+    {key:'bajo', label:'🔴 Bajo'}
+  ];
+
+  area.innerHTML = `
+  <div class="table-wrap fade-up">
+    <div class="table-toolbar">
+      ${filters.map(f=>`<button class="filter-btn ${filterLevel===f.key?'active':''}" onclick="setFilter('${f.key}')">${f.label}</button>`).join('')}
+      <button class="export-btn" onclick="exportCSV()">⬇ Exportar CSV</button>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:36px">#</th>
+          <th onclick="sortBy('name')">Nombre <span class="sort-icon ${sortCol==='name'?'sorted':''}">⇅</span></th>
+          <th onclick="sortBy('fis')">Física <span class="sort-icon ${sortCol==='fis'?'sorted':''}">⇅</span></th>
+          <th onclick="sortBy('mat')">Matemáticas <span class="sort-icon ${sortCol==='mat'?'sorted':''}">⇅</span></th>
+          <th onclick="sortBy('ing')">Inglés <span class="sort-icon ${sortCol==='ing'?'sorted':''}">⇅</span></th>
+          <th onclick="sortBy('prom')">Promedio <span class="sort-icon ${sortCol==='prom'?'sorted':''}">⇅</span></th>
+          <th>Nivel</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${lista.map((e,i)=>{
+          const p = prom(e);
+          const cls = notaClass(p);
+          const idx = data[grado].estudiantes.indexOf(e);
+          return `<tr>
+            <td class="rank">${i+1}</td>
+            <td>
+              <div class="student-cell">
+                <div class="s-avatar" style="background:${avatarColor(e.name)};color:#000">${initials(e.name)}</div>
+                <span class="s-name">${e.name}</span>
+              </div>
+            </td>
+            <td><input class="edit-nota" type="number" step="0.1" min="0" max="5"
+              value="${e.fis}" onchange="editNota(${idx},'fis',this)"
+              onfocus="this.style.borderColor='rgba(16,185,129,0.5)'"
+              onblur="this.style.borderColor='transparent'"></td>
+            <td><input class="edit-nota" type="number" step="0.1" min="0" max="5"
+              value="${e.mat}" onchange="editNota(${idx},'mat',this)"
+              onfocus="this.style.borderColor='rgba(16,185,129,0.5)'"
+              onblur="this.style.borderColor='transparent'"></td>
+            <td><input class="edit-nota" type="number" step="0.1" min="0" max="5"
+              value="${e.ing}" onchange="editNota(${idx},'ing',this)"
+              onfocus="this.style.borderColor='rgba(16,185,129,0.5)'"
+              onblur="this.style.borderColor='transparent'"></td>
+            <td>
+              <div class="prom-bar">
+                <span class="nota ${cls}" style="width:36px">${p}</span>
+                <div class="mini-track"><div class="mini-fill" style="width:${(p/5)*100}%;background:${cls==='alto'?'var(--green)':cls==='medio'?'var(--yellow)':'var(--red)'}"></div></div>
+              </div>
+            </td>
+            <td><span class="badge ${cls}">${notaLabel(p)}</span></td>
+          </tr>`;
+        }).join('')}
+      </tbody>
+    </table>
+    ${lista.length===0?`<div style="padding:30px;text-align:center;color:var(--muted)">Sin resultados para este filtro.</div>`:''}
+  </div>`;
+}
+
+function editNota(idx, field, input){
+  let val = parseFloat(input.value);
+  if(isNaN(val)) val = 0;
+  val = Math.min(5, Math.max(0, +val.toFixed(1)));
+  input.value = val;
+  data[grado].estudiantes[idx][field] = val;
+  saveState();
+  toast(`✅ Nota actualizada: ${val}`, 'success');
+  input.closest('tr').classList.add('saved');
+  setTimeout(()=>input.closest('tr').classList.remove('saved'), 700);
+}
+
+function setFilter(f){
+  filterLevel = f;
+  renderBoletines(document.getElementById('contentArea'), f, document.getElementById('searchInput').value);
+}
+
+function sortBy(col){
+  if(sortCol===col) sortDir*=-1;
+  else{ sortCol=col; sortDir=1; }
+  renderBoletines(document.getElementById('contentArea'), filterLevel, document.getElementById('searchInput').value);
+}
+
+function exportCSV(){
+  const d = data[grado];
+  let csv = 'Nombre,Física,Matemáticas,Inglés,Promedio\n';
+  d.estudiantes.forEach(e=>{
+    csv += `${e.name},${e.fis},${e.mat},${e.ing},${prom(e)}\n`;
+  });
+  const blob = new Blob([csv],{type:'text/csv'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `boletin_central_grado${grado}.csv`;
+  a.click();
+  toast('📥 CSV exportado correctamente', 'success');
+}
+
+/* ===================================================
+   TAREAS
+=================================================== */
+function renderTareas(area){
+  const d = data[grado];
+  const pendientes = d.tareas.filter(t=>!t.done);
+  const completadas = d.tareas.filter(t=>t.done);
+
+  area.innerHTML = `
+  <div class="section-header">
+    <div class="section-title">Pendientes (${pendientes.length})</div>
+  </div>
+  <div class="tasks-grid" id="tasksGrid">
+    ${d.tareas.map((t,i)=>taskCard(t,i)).join('')}
+  </div>
+  <button class="add-task-btn" onclick="openAddTask()">+ Agregar nueva tarea</button>
+  ${completadas.length>0?`<div class="divider"></div><div class="section-header"><div class="section-title">Completadas (${completadas.length})</div></div>`:''}
+  `;
+  updateBadges();
+}
+
+function taskCard(t){
+  const colors = {
+    fis:'var(--accent)',mat:'var(--blue)',ing:'var(--purple)',
+    esp:'#f472b6',bio:'var(--yellow)',quim:'#fb923c',
+    hist:'var(--red)',geo:'#38bdf8',art:'#f472b6'
+  };
+  return `
+  <div class="task-card ${t.subject} fade-up" id="task-${t.id}" style="${t.done?'opacity:0.45':''}">
+    <div class="task-subject" style="color:${colors[t.subject]||'var(--muted)'}">${subjectLabel(t.subject)}</div>
+    <div class="task-name">${t.name}</div>
+    <div class="task-bottom">
+      <div class="task-due">📅 ${t.due}</div>
+      <div class="task-check ${t.done?'done':''}" onclick="toggleTask(${t.id})" title="${t.done?'Deshacer':'Completar'}">${t.done?'✓':''}</div>
+    </div>
+  </div>`;
+}
+
+function toggleTask(id){
+  const t = data[grado].tareas.find(x=>x.id===id);
+  if(!t) return;
+  t.done = !t.done;
+  saveState();
+  toast(t.done?'✅ Tarea completada':'↩ Tarea marcada como pendiente', 'success');
+  renderTareas(document.getElementById('contentArea'));
+}
+
+function openAddTask(){
+  document.getElementById('modalTitle').textContent = '📘 Nueva Tarea';
+  document.getElementById('modalBody').innerHTML = `
+    <div class="form-group">
+      <label class="form-label">Nombre de la tarea</label>
+      <input type="text" class="form-input" id="taskName" placeholder="Ej: Taller de laboratorio">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Materia</label>
+      <select class="form-select" id="taskSubject">
+        <option value="fis">Física</option>
+        <option value="mat">Matemáticas</option>
+        <option value="ing">Inglés</option>
+        <option value="esp">Español</option>
+        <option value="bio">Biología</option>
+        <option value="quim">Química</option>
+        <option value="hist">Historia</option>
+        <option value="geo">Geografía</option>
+        <option value="art">Arte</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Fecha de entrega</label>
+      <input type="text" class="form-input" id="taskDue" placeholder="Ej: 30 abr">
+    </div>
+  `;
+  document.getElementById('modalConfirm').onclick = addTask;
+  document.getElementById('modal').classList.add('open');
+}
+
+function addTask(){
+  const name = document.getElementById('taskName').value.trim();
+  const subject = document.getElementById('taskSubject').value;
+  const due = document.getElementById('taskDue').value.trim()||'Sin fecha';
+  if(!name){ toast('⚠ Ingresa el nombre de la tarea', 'warn'); return; }
+  data[grado].tareas.push({id:++taskNextId, name, subject, due, done:false});
+  saveState();
+  closeModal();
+  toast('✅ Tarea agregada', 'success');
+  renderTareas(document.getElementById('contentArea'));
+}
+
+/* ===================================================
+   EVENTOS
+=================================================== */
+function renderEventos(area){
+  const d = data[grado];
+  area.innerHTML = `
+  <div class="events-layout">
+    <div class="panel fade-up">
+      <div class="panel-header">
+        <div class="panel-title">📅 Próximos Eventos</div>
+        <button class="panel-action" onclick="openAddEvento()">+ Agregar</button>
+      </div>
+      <div id="eventList">
+        ${d.eventos.map(ev=>`
+          <div class="event-item">
+            <div class="event-date-box">
+              <div class="ev-day">${ev.day}</div>
+              <div class="ev-mon">${ev.mon}</div>
+            </div>
+            <div class="event-info">
+              <div class="event-title">${ev.title}</div>
+              <div class="event-desc">${ev.desc}</div>
+            </div>
+            <span class="event-tag ${ev.tag}">${ev.tag}</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
+    <div>
+      <div class="mini-cal fade-up">
+        <div class="cal-header">
+          <div class="cal-month">Abril 2025</div>
+        </div>
+        <div class="cal-grid">
+          ${['D','L','M','M','J','V','S'].map(d=>`<div class="cal-dow">${d}</div>`).join('')}
+          ${buildCalendar(2025, 3)}
+        </div>
+      </div>
+
+      <div class="panel fade-up" style="margin-top:14px;">
+        <div class="panel-header"><div class="panel-title">🏷 Referencias</div></div>
+        <div class="panel-body" style="padding:12px 18px;">
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            ${[
+              {tag:'examen',  label:'Examen / Evaluación'},
+              {tag:'entrega', label:'Entrega'},
+              {tag:'reunion', label:'Reunión'},
+              {tag:'cultural',label:'Evento Cultural'},
+              {tag:'ensayo',  label:'Ensayo / Práctica'}
+            ].map(r=>`
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span class="event-tag ${r.tag}">${r.tag}</span>
+                <span style="font-size:12px;color:var(--muted)">${r.label}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function buildCalendar(year, month){
+  const days = new Date(year, month+1, 0).getDate();
+  const firstDay = new Date(year, month, 1).getDay();
+  const eventDays = new Set(data[grado].eventos.map(e=>e.day));
+  const today = new Date().getDate();
+  const todayMonth = new Date().getMonth();
+  let html = '';
+  for(let i=0;i<firstDay;i++) html += `<div class="cal-day other"></div>`;
+  for(let d=1;d<=days;d++){
+    const isToday = (d===today && todayMonth===month);
+    const hasEv = eventDays.has(d);
+    html += `<div class="cal-day ${isToday?'today':''} ${hasEv?'has-event':''}" title="${hasEv?'Evento programado':''}">${d}</div>`;
+  }
+  return html;
+}
+
+function openAddEvento(){
+  document.getElementById('modalTitle').textContent = '📅 Nuevo Evento';
+  document.getElementById('modalBody').innerHTML = `
+    <div class="form-group">
+      <label class="form-label">Título del evento</label>
+      <input type="text" class="form-input" id="evTitle" placeholder="Ej: Feria de Ciencias">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Descripción</label>
+      <input type="text" class="form-input" id="evDesc" placeholder="Ej: Patio principal – 10AM">
+    </div>
+    <div class="form-group" style="display:flex;gap:12px;">
+      <div style="flex:1;">
+        <label class="form-label">Día</label>
+        <input type="number" class="form-input" id="evDay" placeholder="22" min="1" max="31">
+      </div>
+      <div style="flex:1;">
+        <label class="form-label">Mes</label>
+        <input type="text" class="form-input" id="evMon" placeholder="ABR" maxlength="3">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Tipo</label>
+      <select class="form-select" id="evTag">
+        <option value="examen">Examen</option>
+        <option value="entrega">Entrega</option>
+        <option value="reunion">Reunión</option>
+        <option value="cultural">Cultural</option>
+        <option value="ensayo">Ensayo</option>
+      </select>
+    </div>
+  `;
+  document.getElementById('modalConfirm').onclick = addEvento;
+  document.getElementById('modal').classList.add('open');
+}
+
+function addEvento(){
+  const title = document.getElementById('evTitle').value.trim();
+  const desc  = document.getElementById('evDesc').value.trim()||'Sin descripción';
+  const day   = parseInt(document.getElementById('evDay').value)||1;
+  const mon   = (document.getElementById('evMon').value.trim()||'ABR').toUpperCase();
+  const tag   = document.getElementById('evTag').value;
+  if(!title){ toast('⚠ Ingresa el título del evento', 'warn'); return; }
+  data[grado].eventos.push({day, mon, title, desc, tag});
+  data[grado].eventos.sort((a,b)=>a.day-b.day);
+  saveState();
+  closeModal();
+  toast('✅ Evento agregado', 'success');
+  renderEventos(document.getElementById('contentArea'));
+}
+
+/* ===================================================
+   SEARCH
+=================================================== */
+function buscar(q){
+  if(currentSec === 'boletines'){
+    renderBoletines(document.getElementById('contentArea'), filterLevel, q);
+  }
+}
+
+/* ===================================================
+   MODAL
+=================================================== */
+function closeModal(){
+  document.getElementById('modal').classList.remove('open');
+}
+
+document.getElementById('modal').addEventListener('click', function(e){
+  if(e.target === this) closeModal();
+});
+
+/* ===================================================
+   TOAST
+=================================================== */
+function toast(msg, type='info'){
+  const wrap = document.getElementById('toastWrap');
+  const el = document.createElement('div');
+  el.className = `toast ${type}`;
+  el.textContent = msg;
+  wrap.appendChild(el);
+  setTimeout(()=>el.remove(), 3500);
+}
+
+/* ===================================================
+   LOGOUT
+=================================================== */
+function salir(){
+  toast('👋 Sesión cerrada', 'info');
+  setTimeout(()=>{ window.location.href='index.html'; }, 1200);
+}
+
+/* ===================================================
+   INIT
+=================================================== */
+render('inicio');
+</script>
+</body>
+</html>
