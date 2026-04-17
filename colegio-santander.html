@@ -26,10 +26,15 @@
 
 body{
 font-family:'Inter',sans-serif;
-background:var(--bg);
+background:
+radial-gradient(circle at 20% 20%, rgba(94,234,212,0.15), transparent 40%),
+radial-gradient(circle at 80% 30%, rgba(96,165,250,0.15), transparent 40%),
+#0a0f1c;
+
 color:var(--text);
 display:flex;
 cursor:none;
+overflow:hidden;
 }
 
 /* ===== CURSOR ===== */
@@ -51,6 +56,32 @@ position:fixed;
 pointer-events:none;
 transform:translate(-50%,-50%);
 z-index:9998;
+}
+
+/* ===== TRAIL ===== */
+#trail-container{
+position:fixed;
+top:0;
+left:0;
+pointer-events:none;
+z-index:9997;
+}
+
+.trail{
+width:8px;
+height:8px;
+border-radius:50%;
+position:absolute;
+background:rgba(94,234,212,0.6);
+filter:blur(6px);
+animation:fadeOut 0.6s linear forwards;
+}
+
+@keyframes fadeOut{
+to{
+opacity:0;
+transform:scale(2);
+}
 }
 
 /* ===== SIDEBAR ===== */
@@ -97,14 +128,17 @@ transition:0.2s;
 
 .menu button:hover,
 .menu button.active{
-background:var(--glass);
+background:rgba(94,234,212,0.08);
 color:#fff;
+box-shadow:0 0 10px rgba(94,234,212,0.2);
 }
 
 /* ===== MAIN ===== */
 .main{
 flex:1;
 padding:30px;
+overflow-y:auto;
+height:100vh;
 }
 
 /* HEADER */
@@ -144,6 +178,11 @@ color:white;
 width:240px;
 }
 
+.search:focus{
+outline:none;
+box-shadow:0 0 12px rgba(94,234,212,0.2);
+}
+
 /* DASHBOARD */
 .dashboard{
 display:grid;
@@ -159,11 +198,27 @@ background:var(--glass);
 backdrop-filter:blur(10px);
 border:1px solid var(--border);
 transition:0.3s;
+position:relative;
+overflow:hidden;
+}
+
+.card::before{
+content:"";
+position:absolute;
+inset:0;
+background:linear-gradient(120deg, transparent, rgba(94,234,212,0.15), transparent);
+opacity:0;
+transition:0.3s;
+}
+
+.card:hover::before{
+opacity:1;
 }
 
 .card:hover{
-transform:translateY(-5px);
-box-shadow:0 10px 30px rgba(0,0,0,0.4);
+transform:translateY(-8px) scale(1.02);
+box-shadow:0 20px 40px rgba(0,0,0,0.5),
+           0 0 20px rgba(94,234,212,0.15);
 }
 
 .card h2{font-size:22px}
@@ -215,6 +270,10 @@ border-radius:10px;
 cursor:pointer;
 }
 
+.logout:hover{
+box-shadow:0 0 10px rgba(94,234,212,0.2);
+}
+
 </style>
 </head>
 
@@ -222,6 +281,7 @@ cursor:pointer;
 
 <div class="cursor"></div>
 <div class="cursor-f"></div>
+<div id="trail-container"></div>
 
 <div class="sidebar">
 <div class="logo">SchoolNet</div>
@@ -259,19 +319,31 @@ cursor:pointer;
 
 <script>
 
-/* CURSOR */
+/* CURSOR + TRAIL */
 const c=document.querySelector(".cursor");
 const f=document.querySelector(".cursor-f");
+
 document.addEventListener("mousemove",e=>{
 c.style.left=e.clientX+"px";
 c.style.top=e.clientY+"px";
+
 f.style.left=e.clientX+"px";
 f.style.top=e.clientY+"px";
+
+/* TRAIL */
+let trail=document.createElement("div");
+trail.className="trail";
+trail.style.left=e.clientX+"px";
+trail.style.top=e.clientY+"px";
+
+document.getElementById("trail-container").appendChild(trail);
+
+setTimeout(()=>trail.remove(),600);
 });
 
 let grado="";
 
-/* ===== DATOS (IGUALES) ===== */
+/* DATOS */
 const datos={
 10:{
 estudiantes:[
