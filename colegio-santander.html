@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SchoolNet | Santander</title>
+
+<title>SchoolNet | Colegio Técnico Francisco De Paula Santander</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
@@ -19,18 +20,19 @@ body{
     display:flex;
 }
 
-/* FONDO */
+/* ===== FONDO SEGURO ===== */
 body::before{
     content:"";
     position:fixed;
-    width:100%;
-    height:100%;
+    inset:0;
     background:
-    radial-gradient(circle at 10% 20%, rgba(0,180,255,0.08), transparent 40%),
-    radial-gradient(circle at 80% 70%, rgba(0,120,255,0.08), transparent 40%);
+    radial-gradient(circle at 20% 20%, rgba(0,180,255,0.08), transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(0,120,255,0.08), transparent 40%);
+    z-index:-1;
+    pointer-events:none;
 }
 
-/* SIDEBAR */
+/* ===== SIDEBAR ===== */
 .sidebar{
     width:260px;
     height:100vh;
@@ -54,33 +56,35 @@ select{
     border-radius:10px;
     color:white;
     margin-bottom:25px;
+    cursor:pointer;
 }
 
 .menu button{
     width:100%;
     padding:12px;
-    background:none;
     border:none;
+    background:none;
     color:#9aa4b2;
-    text-align:left;
     border-radius:10px;
-    margin-bottom:8px;
+    text-align:left;
     cursor:pointer;
+    transition:0.2s;
 }
 
 .menu button:hover,
 .menu button.active{
     background:#111827;
-    color:#fff;
+    color:white;
 }
 
-/* MAIN */
+/* ===== MAIN ===== */
 .main{
     flex:1;
     padding:30px 40px;
+    position:relative;
 }
 
-/* TOPBAR */
+/* ===== TOPBAR ===== */
 .topbar{
     display:flex;
     justify-content:space-between;
@@ -90,42 +94,41 @@ select{
 
 .search{
     background:#111827;
+    border:none;
     padding:10px 15px;
     border-radius:10px;
-    border:none;
     color:white;
-    width:250px;
 }
 
-/* DASHBOARD */
+/* ===== DASHBOARD ===== */
 .dashboard{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
     gap:20px;
-    margin:30px 0;
+    margin-bottom:25px;
 }
 
 .card{
     background:#111827;
     padding:20px;
     border-radius:14px;
-    border:1px solid rgba(255,255,255,0.04);
-    transition:0.2s;
+    transition:0.25s;
+    border:1px solid transparent;
 }
 
 .card:hover{
-    transform:translateY(-4px);
+    transform:translateY(-5px);
     border-color:#38bdf8;
 }
 
-/* CONTENT */
+/* ===== CONTENT ===== */
 .content{
     background:#111827;
     padding:25px;
     border-radius:14px;
 }
 
-/* TABLE */
+/* ===== TABLE ===== */
 table{
     width:100%;
     border-collapse:collapse;
@@ -134,6 +137,7 @@ table{
 
 th,td{
     padding:12px;
+    text-align:left;
 }
 
 th{
@@ -145,42 +149,12 @@ tr:hover{
     background:rgba(255,255,255,0.03);
 }
 
-/* COLORES */
+/* ===== NIVELES ===== */
 .alto{color:#22c55e}
 .medio{color:#facc15}
 .bajo{color:#ef4444}
 
-/* BADGE */
-.badge{
-    padding:5px 10px;
-    border-radius:8px;
-    font-size:12px;
-}
-
-.b-alto{background:#22c55e20;color:#22c55e}
-.b-medio{background:#facc1520;color:#facc15}
-.b-bajo{background:#ef444420;color:#ef4444}
-
-/* CALENDARIO */
-.calendar{
-    display:grid;
-    grid-template-columns:repeat(7,1fr);
-    gap:8px;
-}
-
-.day{
-    padding:12px;
-    background:#020617;
-    text-align:center;
-    border-radius:8px;
-}
-
-.event{
-    background:#38bdf8;
-    color:#000;
-}
-
-/* BOTON */
+/* ===== BOTON ===== */
 .logout{
     margin-top:auto;
     padding:12px;
@@ -196,6 +170,7 @@ tr:hover{
 
 <body>
 
+<!-- SIDEBAR -->
 <div class="sidebar">
     <div class="logo">SchoolNet</div>
 
@@ -210,21 +185,21 @@ tr:hover{
         <button onclick="nav(this,'boletines')">Boletines</button>
         <button onclick="nav(this,'eventos')">Eventos</button>
         <button onclick="nav(this,'tareas')">Tareas</button>
-        <button onclick="nav(this,'calendario')">Calendario</button>
     </div>
 
     <button class="logout" onclick="salir()">Cerrar sesión</button>
 </div>
 
+<!-- MAIN -->
 <div class="main">
 
 <div class="topbar">
     <div>
-        <h1>Colegio Santander</h1>
+        <h1>Colegio Técnico Francisco De Paula Santander</h1>
         <p id="info">Selecciona un grado</p>
     </div>
 
-    <input type="text" placeholder="Buscar estudiante..." class="search" onkeyup="buscar(this.value)">
+    <input type="text" class="search" placeholder="Buscar estudiante..." onkeyup="buscar(this.value)">
 </div>
 
 <div id="contenido"></div>
@@ -233,25 +208,37 @@ tr:hover{
 
 <script>
 
-/* ===== DATA POR GRADO ===== */
-const datos = {
-10: generarEstudiantes("10"),
-11: generarEstudiantes("11")
-};
-
-function generarEstudiantes(grado){
+/* ===== GENERADOR ===== */
+function generarEstudiantes(){
     const nombres = ["Juan","Laura","Carlos","María","Pedro","Sofía","Andrés","Camila","Luis","Valentina","Mateo","Sara","Daniel","Paula","David","Ana","Jorge","Lucía"];
+    
     return nombres.slice(0,15).map(n=>({
-        name: n+" "+grado,
-        mat: (Math.random()*2+3).toFixed(1),
-        esp: (Math.random()*2+3).toFixed(1),
-        ing: (Math.random()*2+3).toFixed(1)
+        nombre:n,
+        mat:(Math.random()*2+3).toFixed(1),
+        esp:(Math.random()*2+3).toFixed(1),
+        ing:(Math.random()*2+3).toFixed(1)
     }));
 }
 
+const data = {
+    10: generarEstudiantes(),
+    11: generarEstudiantes()
+};
+
 let gradoActual="";
 
-/* ===== FUNCIONES ===== */
+/* ===== UTIL ===== */
+function promedio(e){
+    return ((+e.mat + +e.esp + +e.ing)/3).toFixed(2);
+}
+
+function nivel(n){
+    if(n>=4.5)return "alto";
+    if(n>=4)return "medio";
+    return "bajo";
+}
+
+/* ===== CONTROL ===== */
 function cambiarGrado(){
     gradoActual=document.getElementById("grado").value;
     document.getElementById("info").innerText="Grado "+gradoActual;
@@ -264,16 +251,6 @@ function nav(btn,sec){
     render(sec);
 }
 
-function promedio(e){
-    return ((+e.mat + +e.esp + +e.ing)/3).toFixed(2);
-}
-
-function nivel(n){
-    if(n>=4.5)return "alto";
-    if(n>=4)return "medio";
-    return "bajo";
-}
-
 /* ===== RENDER ===== */
 function render(sec){
 
@@ -282,34 +259,32 @@ if(!gradoActual){
     return;
 }
 
-let estudiantes = datos[gradoActual];
+let estudiantes = data[gradoActual];
 
 if(sec==="inicio"){
-    let promGeneral = (estudiantes.reduce((a,e)=>a+ +promedio(e),0)/estudiantes.length).toFixed(2);
+    let prom = (estudiantes.reduce((a,e)=>a+ +promedio(e),0)/estudiantes.length).toFixed(2);
 
     contenido.innerHTML=`
     <div class="dashboard">
         <div class="card"><h2>${estudiantes.length}</h2><p>Estudiantes</p></div>
-        <div class="card"><h2>${promGeneral}</h2><p>Promedio general</p></div>
-        <div class="card"><h2>${Math.floor(Math.random()*5+3)}</h2><p>Tareas activas</p></div>
+        <div class="card"><h2>${prom}</h2><p>Promedio</p></div>
+        <div class="card"><h2>${Math.floor(Math.random()*5+3)}</h2><p>Tareas</p></div>
     </div>`;
 }
 
 if(sec==="boletines"){
     let html=`<div class="content"><h3>Boletines</h3><table>
-    <tr><th>Nombre</th><th>Mat</th><th>Esp</th><th>Ing</th><th>Prom</th><th>Nivel</th></tr>`;
+    <tr><th>Nombre</th><th>Mat</th><th>Esp</th><th>Ing</th><th>Prom</th></tr>`;
 
     estudiantes.forEach(e=>{
-        let p = promedio(e);
-        let n = nivel(p);
+        let p=promedio(e);
         html+=`
         <tr>
-        <td>${e.name}</td>
+        <td>${e.nombre}</td>
         <td>${e.mat}</td>
         <td>${e.esp}</td>
         <td>${e.ing}</td>
-        <td>${p}</td>
-        <td><span class="badge b-${n}">${n}</span></td>
+        <td class="${nivel(p)}">${p}</td>
         </tr>`;
     });
 
@@ -318,35 +293,19 @@ if(sec==="boletines"){
 }
 
 if(sec==="eventos"){
-    contenido.innerHTML=`
-    <div class="content">
+    contenido.innerHTML=`<div class="content">
     <h3>Eventos</h3>
-    <ul>
-    <li>📌 Entrega de boletines - 25 abril</li>
-    <li>🎓 Feria académica - 10 mayo</li>
-    <li>⚽ Torneo deportivo - 18 mayo</li>
-    </ul>
+    <p>📅 Entrega de boletines - 25 abril</p>
+    <p>🎓 Feria académica - 10 mayo</p>
     </div>`;
 }
 
 if(sec==="tareas"){
-    contenido.innerHTML=`
-    <div class="content">
+    contenido.innerHTML=`<div class="content">
     <h3>Tareas</h3>
-    <ul>
-    <li>Matemáticas: Álgebra página 45</li>
-    <li>Español: Ensayo corto</li>
-    <li>Inglés: Presentación oral</li>
-    </ul>
+    <p>Matemáticas: Álgebra</p>
+    <p>Español: Ensayo</p>
     </div>`;
-}
-
-if(sec==="calendario"){
-    let dias="";
-    for(let i=1;i<=30;i++){
-        dias+=`<div class="day ${i==5||i==12?"event":""}">${i}</div>`;
-    }
-    contenido.innerHTML=`<div class="content"><h3>Calendario</h3><div class="calendar">${dias}</div></div>`;
 }
 
 }
@@ -356,13 +315,14 @@ function buscar(txt){
 if(!gradoActual)return;
 
 txt=txt.toLowerCase();
-let estudiantes = datos[gradoActual].filter(e=>e.name.toLowerCase().includes(txt));
+
+let lista = data[gradoActual].filter(e=>e.nombre.toLowerCase().includes(txt));
 
 let html=`<div class="content"><h3>Resultados</h3><table>
 <tr><th>Nombre</th><th>Promedio</th></tr>`;
 
-estudiantes.forEach(e=>{
-html+=`<tr><td>${e.name}</td><td>${promedio(e)}</td></tr>`;
+lista.forEach(e=>{
+html+=`<tr><td>${e.nombre}</td><td>${promedio(e)}</td></tr>`;
 });
 
 html+="</table></div>";
